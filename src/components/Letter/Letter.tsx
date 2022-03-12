@@ -1,16 +1,23 @@
 import React from 'react';
+import './letter.scss'
 
-type ltr = string 
+type letter = string 
+type id = string
+type className = string
+
 
 interface ILetter {
-    letter: ltr;
+    letter: letter
+    key?: id
+    className: className
+    id: any
 }
 
-const Letter = ({letter} : ILetter) => {
+const Letter = ({letter, key, className, id} : ILetter) => {
     return (
-        <div>
+        <span className={className} id={id}> 
             {letter}
-        </div>
+        </span>
     );
 };
 
