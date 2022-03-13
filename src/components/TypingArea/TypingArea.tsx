@@ -1,15 +1,13 @@
 import React, { FC, Fragment } from "react";
 import Letter from "../Letter/Letter";
 import "./typingArea.scss";
+import { observer } from "mobx-react-lite";
+import letters from '../../store/letters'
 
-interface ITypingProps {
-  text: string[];
-}
 
-const TypingArea: FC<ITypingProps> = ({ text }) => {
+const TypingArea: FC = observer(() => {
 
-    
-    const textArray = text.map((letter, index) => {
+    const textArray = letters.text.map((letter, index) => {
 
     return (
         <Fragment key={index.toString() + Math.random()} >
@@ -21,14 +19,12 @@ const TypingArea: FC<ITypingProps> = ({ text }) => {
         </Fragment>
     )
   });
-
+  
   return (
-      <>
         <div style={{ color: "#fff" }}>
             {textArray}
         </div>
-      </>
   )
-};
+})
 
 export default TypingArea;

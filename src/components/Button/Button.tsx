@@ -11,16 +11,24 @@ interface IButton {
 const Button: FC<IButton> = observer(({ text }) => {
 
   const onCorrectInput = (): void => {
-    letters.increment()
+    letters.incrementCurrentId()
+  }
+
+  const onIncorrectInput = (): void => {
+    letters.incrementMistakesCounter()
   }
 
   const onStart = (e:object): void => {
     document.addEventListener('keydown', (e) => {
       if (e.key === letters.currrentLetter) {
         onCorrectInput()
-      }
+      } else if (e.key.length === 1){
+        onIncorrectInput()
+      } 
     })
   } 
+
+  
   
   return (
 	<button onClick={onStart}>
