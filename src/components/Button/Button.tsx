@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { FC } from "react";
+import currentLetter from '../../store/currenLetter'
+import {observer} from 'mobx-react-lite'
 
-const Button = () => {
 
-    const onSpace = (e: object) => {
-        document.addEventListener('keypress', () => {
-            console.log(e)
-        })
-    }
+interface IButton {
+  text?: string;
+}
 
-    return (
-        <button onClick={onSpace}>
-            Click me
-        </button>
-    );
-};
+const Button: FC<IButton> = observer(({ text }) => {
+
+  const onInput = (e:object): void => {
+    
+    currentLetter.increment()
+  } 
+  
+  return (
+	<button onClick={onInput}>
+		{currentLetter.currentLetterId}
+	</button>
+  
+  )     
+})
 
 export default Button;

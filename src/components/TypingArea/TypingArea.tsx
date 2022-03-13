@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment } from "react";
 import Letter from "../Letter/Letter";
 import "./typingArea.scss";
 
@@ -8,27 +8,15 @@ interface ITypingProps {
 
 const TypingArea: FC<ITypingProps> = ({ text }) => {
 
-    const [position, setPosition] = useState(0)
-    let style: string
-
-    const onStart = (e:object) => {
-        console.log('+')
-        setPosition(position + 1)
-    }
-
+    
     const textArray = text.map((letter, index) => {
-        console.log('f')
-        if (index === position) {
-            style = 'letter-active'
-        } else {
-            style = 'letter-default'
-    }
+
     return (
         <Fragment key={index.toString() + Math.random()} >
             <Letter 
-            id = {index}
+            index = {index}
             letter={letter} 
-            className={style}
+            className={'letter-default'}
             />
         </Fragment>
     )
@@ -38,10 +26,7 @@ const TypingArea: FC<ITypingProps> = ({ text }) => {
       <>
         <div style={{ color: "#fff" }}>
             {textArray}
-            <button onClick={onStart}>
-                Click me
-            </button>
-        </div>;
+        </div>
       </>
   )
 };

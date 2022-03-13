@@ -1,6 +1,6 @@
 // import React, { useEffect, useState } from "react";
 // import Card from "./components/Card/Card";
-// import Button from "./components/Button/Button";
+import Button from "./components/Button/Button";
 import TypingArea from "./components/TypingArea/TypingArea";
 
 
@@ -14,7 +14,8 @@ function App() {
   return (
     <div className="App">
       <TypingArea text={arrayText}/>
-      {/* <Button/> */}
+
+      <Button>Click me</Button>
     </div>
   );
 }
