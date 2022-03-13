@@ -1,7 +1,7 @@
 import React from 'react';
 import './letter.scss'
 import {observer} from 'mobx-react-lite'
-import currentLetter from '../../store/currenLetter'
+import letters from '../../store/letters'
 
 
 interface ILetter {
@@ -12,12 +12,16 @@ interface ILetter {
 }
 
 const Letter = observer(({letter, key, className, index} : ILetter) => {
-    const {currentLetterId} = currentLetter
+
+    const {currentLetterId} = letters
+    
     if (index === currentLetterId) {
         className = 'letter-active'
+        letters.currrentLetter = letter
     } else if (index < currentLetterId) {
         className = 'letter-done'
     }
+
 
     return (
         <span className={className} id={index.toString()}> 

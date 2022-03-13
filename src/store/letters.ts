@@ -1,12 +1,21 @@
 import { makeAutoObservable } from "mobx"
 
 
-class CurrentLetter {
+class Letters {
 
     currentLetterId: number = 0
+    currrentLetter: string = ''
 
     constructor(){
         makeAutoObservable(this)
+    }
+
+    changeCurrentLetter(newLetter: string) {
+        this.currrentLetter = newLetter
+    }
+
+    setCurrentLetterId(newId: number) {
+        this.currentLetterId = newId
     }
 
     increment(){
@@ -21,4 +30,4 @@ class CurrentLetter {
 
 
 
-export default new CurrentLetter()
+export default new Letters()
