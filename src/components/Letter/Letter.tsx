@@ -17,7 +17,7 @@ const Letter = observer(({letter, key, className, index} : ILetter) => {
     
     if (index === currentLetterId) {
         className = 'letter-active'
-        letters.currrentLetter = letter
+        letters.setCurrentLetter(letter)
     } else if (index < currentLetterId) {
         className = 'letter-done'
     }

@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import Service from "./services/service";
-import Button from "./components/Button/Button";
 import TypingArea from "./components/TypingArea/TypingArea";
 import letters from "./store/letters";
-
-const text: string = 'some text test fuck me please hard'
+import CardList from "./components/CardList/CardList";
+import './styles/reset.scss'
+import './app.scss'
 
 
 function getRandomInt(max: number) : number {
   return Math.floor(Math.random() * max);
 }
-const arrayText = text.split('')
+
 
 function App() {
 
@@ -23,14 +23,13 @@ function App() {
     })
   })
 
-  letters.changeCurrentLetter(arrayText[0])
-  letters.setCurrentLetterId(0)
 
   return (
     <div className="App">
-      <TypingArea/>
-
-      <Button>Click me</Button>
+      <div className="container">
+        <TypingArea/>
+        <CardList />
+      </div>
     </div>
   );
 }

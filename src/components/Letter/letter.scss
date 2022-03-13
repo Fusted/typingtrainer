@@ -5,17 +5,28 @@ span {
 
 
 .letter-done {
-    background-color: palegreen;
+    // background-color: palegreen;
+    opacity: .5;
 }
 
 .letter-active {
-    background-color: green;
+    // background-color: green;
+    position: relative;
+    &::after {
+        content: '';
+        background-color: #fff;
+        width: 21px;
+        height: 2px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
 }
 
 .lettr-false {
-    background-color: palevioletred;
+    // background-color: palevioletred;
 }
 
 .letter-default {
-    background-color: powderblue;
+    // background-color: powderblue;
 }

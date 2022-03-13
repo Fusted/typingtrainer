@@ -21,7 +21,7 @@ const TypingArea: FC = observer(() => {
   });
   
   return (
-        <div style={{ color: "#fff" }}>
+        <div className="typingArea">
             {textArray}
         </div>
   )
