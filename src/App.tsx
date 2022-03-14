@@ -3,7 +3,6 @@ import Service from "./services/service";
 import TypingArea from "./components/TypingArea/TypingArea";
 import letters from "./store/letters";
 import CardList from "./components/CardList/CardList";
-import './styles/reset.scss'
 import './app.scss'
 
 

@@ -1,26 +1,15 @@
-span {
+.typingarea > span {
     font-size: 30px;
     letter-spacing: 1rem;
 }
 
 
 .letter-done {
-    // background-color: palegreen;
     opacity: .5;
 }
 
 .letter-active {
-    // background-color: green;
-    position: relative;
-    &::after {
-        content: '';
-        background-color: #fff;
-        width: 21px;
-        height: 2px;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-    }
+    border-bottom: 2px solid #fff;    
 }
 
 .lettr-false {
