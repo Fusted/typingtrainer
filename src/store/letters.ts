@@ -7,9 +7,14 @@ class Letters {
 	currentLetter: string = ''
 	mistakesCounter: number = 0
 	text: string[] = []
+	status: boolean = false
 
 	constructor(){
 		makeAutoObservable(this)
+	}
+
+	toggleStatus(){
+		this.status = !this.status
 	}
 
 	setText(newText: string[]) {

@@ -1,10 +1,13 @@
 import React, {FC} from 'react';
-import { IButton } from '../../interfaces/interfaces';
+import styles from '../CardList/cardList.module.scss'
 
+interface IButton {
+  text?: string
+}
 
 const SettingsButton: FC<IButton> = ({text}) => {
   return (
-    <div className='button card'>
+    <div className={styles.button}>
         {text}
     </div>
   );

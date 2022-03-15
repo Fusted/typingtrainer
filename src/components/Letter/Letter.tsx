@@ -1,25 +1,24 @@
 import React from 'react';
-import './letter.scss'
 import {observer} from 'mobx-react-lite'
 import letters from '../../store/letters'
-
+import styles from './letter.module.scss'
 
 interface ILetter {
     letter: string
     key?: string
-    className: string
     index: number
 }
 
-const Letter = observer(({letter, key, className, index} : ILetter) => {
-
+const Letter = observer(({letter, key, index} : ILetter) => {
+    let className = 'letter-defalet' 
+    
     const {currentLetterId} = letters
     
     if (index === currentLetterId) {
-        className = 'letter-active'
+        className = styles.letterActive
         letters.setCurrentLetter(letter)
     } else if (index < currentLetterId) {
-        className = 'letter-done'
+        className = styles.letterDone
     }
 
 

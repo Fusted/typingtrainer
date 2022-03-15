@@ -1,10 +1,13 @@
 import React, { FC } from "react";
 import letters from '../../store/letters'
 import {observer} from 'mobx-react-lite'
-import {IButton} from '../../interfaces/interfaces'
+import styles from '../CardList/cardList.module.scss'
 
 
-const ButtonStart: FC<IButton> = ({ text }) => {
+export interface IButton {
+  text?: string;
+}
+const ButtonStart: FC<IButton> = observer(() => {
 
 
   const onCorrectInput = (): void => {
@@ -26,18 +29,23 @@ const ButtonStart: FC<IButton> = ({ text }) => {
   }
 
   const onStart = (e:object): void => {
-    letters.setCurrentLetterId(0)
-    letters.setCurrentLetter(letters.text[0])
-    keyListener()
+    if (!letters.status) {
+      letters.toggleStatus()
+      letters.setCurrentLetterId(0)
+      letters.setCurrentLetter(letters.text[0])
+      keyListener()
+    }
+    
   } 
 
+  const text = !letters.status ? 'start' : 'reset' 
   
   return (
-	<div className='button card' onClick={onStart}>
+	<div className={styles.button} onClick={onStart}>
 		{text}
 	</div>
   
   )     
-}
+})
 
 export default ButtonStart;

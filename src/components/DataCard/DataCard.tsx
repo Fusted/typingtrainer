@@ -1,10 +1,15 @@
 import React, {FC} from 'react';
-import {ICard} from '../../interfaces/interfaces'
+import styles from '../CardList/cardList.module.scss'
+
+interface ICard {
+  text: string;
+  value: number;
+}
 
 const DataCard: FC<ICard> = ({text, value}) => {
 
   return (
-    <div className='card'>
+    <div className={styles.card}>
       {text}: {value}
     </div>
   );

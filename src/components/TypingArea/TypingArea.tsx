@@ -1,9 +1,9 @@
 import React, { FC, Fragment } from "react";
 import Letter from "../Letter/Letter";
-import "./typingArea.scss";
+// import "./typingArea.scss";
 import { observer } from "mobx-react-lite";
 import letters from '../../store/letters'
-
+import styles from './typingArea.module.scss'
 
 const TypingArea: FC = observer(() => {
 
@@ -14,14 +14,13 @@ const TypingArea: FC = observer(() => {
             <Letter 
             index = {index}
             letter={letter} 
-            className={'letter-default'}
             />
         </Fragment>
     )
   });
   
   return (
-        <div className="typingArea">
+        <div className={styles.area}>
             {textArray}
         </div>
   )
