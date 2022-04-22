@@ -1,6 +1,5 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, useEffect } from "react";
 import Letter from "../Letter/Letter";
-// import "./typingArea.scss";
 import { observer } from "mobx-react-lite";
 import letters from '../../store/letters'
 import styles from './typingArea.module.scss'

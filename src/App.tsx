@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, {createRef, useEffect} from "react";
 import Service from "./services/service";
 import TypingArea from "./components/TypingArea/TypingArea";
 import letters from "./store/letters";
 import CardList from "./components/CardList/CardList";
+import Input from "./components/Input/Input";
 import './app.scss'
 
 
@@ -12,6 +13,7 @@ function getRandomInt(max: number) : number {
 
 
 function App() {
+  const startButtonRef = createRef<HTMLInputElement>();
 
   useEffect(() => {
     const text = Service.getText()
@@ -26,8 +28,9 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <TypingArea/>
-        <CardList />
+        <Input ref={startButtonRef}/>
+        <TypingArea />
+        <CardList startButtonRef={startButtonRef}/>
       </div>
     </div>
   );

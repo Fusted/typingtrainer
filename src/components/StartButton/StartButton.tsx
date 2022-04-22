@@ -1,13 +1,14 @@
-import React, { FC } from "react";
+import React, {createRef, FC} from "react";
 import letters from '../../store/letters'
 import {observer} from 'mobx-react-lite'
 import styles from '../CardList/cardList.module.scss'
 
 
 export interface IButton {
-  text?: string;
+  startButtonRef:  React.RefObject<HTMLInputElement>
+
 }
-const ButtonStart: FC<IButton> = observer(() => {
+const ButtonStart: FC<IButton> = observer(({startButtonRef}) => {
 
 
   const onCorrectInput = (): void => {
@@ -29,7 +30,10 @@ const ButtonStart: FC<IButton> = observer(() => {
   }
 
   const onStart = (e:object): void => {
-    if (!letters.status) {
+    console.log(startButtonRef, 'startButtonRef')
+    if (!letters.status && startButtonRef) {
+      console.log(startButtonRef?.current, 'startButtonRef?.current')
+      startButtonRef?.current?.focus();
       letters.toggleStatus()
       letters.setCurrentLetterId(0)
       letters.setCurrentLetter(letters.text[0])
