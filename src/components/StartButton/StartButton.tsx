@@ -6,10 +6,8 @@ import styles from '../CardList/cardList.module.scss'
 
 export interface IButton {
   startButtonRef:  React.RefObject<HTMLInputElement>
-
 }
 const ButtonStart: FC<IButton> = observer(({startButtonRef}) => {
-
 
   const onCorrectInput = (): void => {
     letters.incrementCurrentId()
