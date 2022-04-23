@@ -9,16 +9,22 @@ interface ILetter {
     index: number
 }
 
-const Letter = observer(({letter, key, index} : ILetter) => {
-    let className = 'letter-defalet' 
-    
-    const {currentLetterId} = letters
-    
-    if (index === currentLetterId) {
-        className = styles.letterActive
-        letters.setCurrentLetter(letter)
-    } else if (index < currentLetterId) {
-        className = styles.letterDone
+const Letter = observer(({letter, key, index}: ILetter) => {
+    let className = styles.letterDefault
+    const {text, enteredText} = letters
+
+    if (index <= enteredText.length) {
+        if (index === letters.currentLetterId) {
+            className = styles.letterActive
+            letters.setCurrentLetter(letter)
+        } else {
+            if (text[index] == enteredText[index]) {
+                className = styles.letterDone
+            } else {
+                className = styles.letterFalse
+            }
+
+        }
     }
 
 

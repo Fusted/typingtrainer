@@ -8,11 +8,11 @@ interface ICard {
 
 const DataCard: FC<ICard> = ({text, value}) => {
 
-  return (
-    <div className={styles.card}>
-      {text}: {value}
-    </div>
-  );
+    return (
+        <div className={styles.card}>
+            {text}: {value}
+        </div>
+    );
 }
 
 export default DataCard;

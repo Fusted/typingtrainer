@@ -3,13 +3,35 @@
 .area {
     background-color: $typingBG;
     width: 80%;
-    height: 200%;
+    height: 100%;
     padding: 28px;
-    padding-bottom: 40px;
-    margin-bottom: 40px;
     border-radius: 24px;
     color: rgba(194, 194, 194, 0.5);
     font-weight: 500;
     font-size: 32px;
     letter-spacing: 2px;
+    z-index: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.invisible {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: -1px;
+    border: 1px solid #fff;
+    background: none;
+    padding-bottom: 0;
+    height: calc(100% - 30px);
+    opacity: 0;
+    //color: transparent;
+    //caret-color: green;
+}
+
+.wrapper {
+    position: relative;
+    margin-bottom: 40px;
 }

@@ -1,27 +1,23 @@
 import React, {FC} from 'react';
+import {observer} from 'mobx-react-lite';
 import StartButton from '../StartButton/StartButton';
 import SettingsButton from '../SettingButton/SettingsButton';
 import DataCard from '../DataCard/DataCard';
 import letters from '../../store/letters';
-import { observer } from 'mobx-react-lite';
-import styles from './cardList.module.scss'
-
+import styles from './cardList.module.scss';
 
 interface CardListProps {
-    startButtonRef:  React.RefObject<HTMLInputElement>
+    hiddenAreaRef: React.RefObject<HTMLElement>
+    changeMainText: () => void
 }
 
-const CardList: FC<CardListProps> = observer(({startButtonRef}) => {
-
-  return (
+const CardList: FC<CardListProps> = observer(({ hiddenAreaRef, changeMainText }) => (
     <div className={styles.cardList}>
-      <StartButton startButtonRef={startButtonRef}/>
-      <DataCard text={'Верно'} value={letters.currentLetterId}/>
-      <DataCard text={'Неверно'} value={letters.mistakesCounter}/>
-      <SettingsButton text={'Settings'}/>
+        <StartButton hiddenAreaRef={hiddenAreaRef} changeMainText={changeMainText} />
+        <DataCard text="Верно" value={letters.currentLetterId} />
+        <DataCard text="Неверно" value={letters.mistakesCounter} />
+        <SettingsButton text="Settings" />
     </div>
-  );
-})
+));
 
 export default CardList;
-

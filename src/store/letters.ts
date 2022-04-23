@@ -1,52 +1,57 @@
-import { makeAutoObservable } from "mobx"
-
+import { makeAutoObservable } from 'mobx'
 
 class Letters {
+    currentLetterId: number = 0
 
-	currentLetterId: number = 0
-	currentLetter: string = ''
-	mistakesCounter: number = 0
-	text: string[] = []
-	status: boolean = false
+    currentLetter: string = ''
 
-	constructor(){
-		makeAutoObservable(this)
-	}
+    enteredText: string = ''
 
-	toggleStatus(){
-		this.status = !this.status
-	}
+    mistakesCounter: number = 0
 
-	setText(newText: string[]) {
-		this.text = newText
-	}
+    text: string = ''
 
-	setCurrentLetterId(newId: number) {
-		this.currentLetterId = newId
-	}
+    status: boolean = false
 
-	setCurrentLetter(newLetter: string) {
-		this.currentLetter = newLetter
-	}
+    constructor() {
+        makeAutoObservable(this)
+    }
 
-	setMitstakesCounter(newValue: number) {
-		this.mistakesCounter = newValue
-	}
+    toggleStatus() {
+        this.status = !this.status
+    }
 
-	incrementMistakesCounter() {
-		this.mistakesCounter += 1
-	}
+    setText(newText: string) {
+        this.text = newText
+    }
 
-	incrementCurrentId(){
-		this.currentLetterId += 1
-	}
+    setCurrentLetterId(newId: number) {
+        this.currentLetterId = newId
+    }
 
-	decrementCurrentId(){
-		this.currentLetterId -= 1
-	}
+    setCurrentLetter(newLetter: string) {
+        this.currentLetter = newLetter
+    }
 
+    setMitstakesCounter(newValue: number) {
+        this.mistakesCounter = newValue
+    }
+
+    incrementMistakesCounter() {
+        this.mistakesCounter += 1
+    }
+
+    incrementCurrentId() {
+        this.currentLetterId += 1
+    }
+
+    decrementCurrentId() {
+        this.currentLetterId -= 1
+    }
+
+    setEnteredText(newText: string) {
+        this.enteredText = newText
+    }
 }
-
-
 
 export default new Letters()
