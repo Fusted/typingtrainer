@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styles from '../CardList/cardList.module.scss'
 
 interface IButton {
-  text?: string
+    text?: string
 }
 
 const SettingsButton: FC<IButton> = ({text}) => {

@@ -1,40 +1,32 @@
-import React, {FC} from "react";
-import letters from '../../store/letters'
-import {observer} from 'mobx-react-lite'
-import styles from '../CardList/cardList.module.scss'
-
+import React, { FC } from "react"
+import letters from "../../store/letters"
+import { observer } from "mobx-react-lite"
+import styles from "../CardList/cardList.module.scss"
 
 export interface IButton {
-    hiddenAreaRef:  React.RefObject<HTMLElement>
+    hiddenAreaRef: React.RefObject<HTMLElement>
     changeMainText: () => void
 }
 
-const ButtonStart: FC<IButton> = observer(({hiddenAreaRef, changeMainText}) => {
-    const resetState = ():void => {
+const ButtonStart: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
+    const resetState = (): void => {
         letters.toggleStatus()
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
-        letters.setEnteredText('')
+        letters.setEnteredText("")
     }
 
-    // const onCorrectInput = (): void => {
-    //   letters.incrementCurrentId()
-    // }
-
-    const onIncorrectInput = (): void => {
-        letters.incrementMistakesCounter()
-    }
-
-    const keyListener = () : void => {
-        document.addEventListener('selectionchange', () => {
-            const sel = window.getSelection() as Selection
-            letters.setCurrentLetterId(sel.focusOffset)
+    const keyListener = (): void => {
+        document.addEventListener("selectionchange", () => {
+            const cursorPosition = window.getSelection() as Selection
+            // console.log(cursorPosition.focusOffset)
+            letters.setCurrentLetterId(cursorPosition.focusOffset)
         })
     }
 
-    const onStart = (e:React.MouseEvent): void => {
+    const onStart = (): void => {
         if (!letters.status && hiddenAreaRef) {
-            hiddenAreaRef?.current?.focus();
+            hiddenAreaRef?.current?.focus()
             keyListener()
         } else {
             changeMainText()
@@ -42,14 +34,13 @@ const ButtonStart: FC<IButton> = observer(({hiddenAreaRef, changeMainText}) => {
         resetState()
     }
 
-    const text = !letters.status ? 'Start' : 'Reset'
+    const text = !letters.status ? "Start" : "Reset"
 
     return (
         <div className={styles.button} onClick={onStart}>
             {text}
         </div>
-
     )
-})
+}
 
-export default ButtonStart;
+export default observer(ButtonStart)

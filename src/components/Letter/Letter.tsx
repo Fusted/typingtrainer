@@ -1,7 +1,7 @@
-import React from 'react';
-import {observer} from 'mobx-react-lite'
-import letters from '../../store/letters'
-import styles from './letter.module.scss'
+import React from "react"
+import { observer } from "mobx-react-lite"
+import letters from "../../store/letters"
+import styles from "./letter.module.scss"
 
 interface ILetter {
     letter: string
@@ -9,30 +9,27 @@ interface ILetter {
     index: number
 }
 
-const Letter = observer(({letter, key, index}: ILetter) => {
-    let className = styles.letterDefault
-    const {text, enteredText} = letters
+const Letter = ({ letter, key, index }: ILetter) => {
+    let className = styles.letter_default
+    const { text, enteredText } = letters
 
     if (index <= enteredText.length) {
         if (index === letters.currentLetterId) {
-            className = styles.letterActive
-            letters.setCurrentLetter(letter)
+            className = styles.letter_active
         } else {
             if (text[index] == enteredText[index]) {
-                className = styles.letterDone
+                className = styles.letter_done
             } else {
-                className = styles.letterFalse
+                className = styles.letter_false
             }
-
         }
     }
 
-
     return (
-        <span className={className} id={index.toString()}> 
+        <span key={key} className={className} id={index.toString()}>
             {letter}
         </span>
     )
-})
+}
 
-export default Letter;
+export default observer(Letter)

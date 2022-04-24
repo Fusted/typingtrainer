@@ -32,6 +32,7 @@ module.exports = {
                 argsIgnorePattern: "^_",
             },
         ],
+        semi: 0,
     },
     settings: {
         "import/resolver": {
@@ -41,4 +42,4 @@ module.exports = {
             },
         },
     },
-};
+}
