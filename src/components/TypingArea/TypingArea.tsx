@@ -1,5 +1,5 @@
 import cn from "classnames"
-import React, {ForwardedRef, forwardRef, useEffect} from "react"
+import React, { ForwardedRef, forwardRef } from "react"
 import { observer } from "mobx-react-lite"
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable"
 import letters from "../../store/letters"
@@ -11,23 +11,24 @@ const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
         const contentHtml: HTMLElement = e.currentTarget
         const nonBreakableSpace = "&nbsp;"
         let newHTML = contentHtml.innerText
-
+        //fixing spaces
         if (
             contentHtml.innerHTML.slice(-nonBreakableSpace.length) ==
             nonBreakableSpace
         ) {
             newHTML = `${newHTML.slice(0, newHTML.length - 1)} `
         }
+        //inc mistakes
+        const lastSymbolId = newHTML.length - 1
+        if (newHTML[lastSymbolId] != letters.text[lastSymbolId] && (newHTML.length > letters.enteredText.length)) {
+            letters.incrementMistakesCounter()
+        }
+
         letters.setEnteredText(newHTML)
         const sel = window.getSelection() as Selection
         letters.setCurrentLetterId(sel.focusOffset)
-        if (newHTML[newHTML.length - 1] != letters.text[newHTML.length - 1]) {
-            letters.incrementMistakesCounter()
-        }
     }
-    useEffect(() =>{
-        console.log(letters.enteredText)
-    })
+
     return (
         <div className={styles.wrapper}>
             <ShowingText />
@@ -37,11 +38,10 @@ const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
                 html={letters.enteredText}
                 // disabled={!letters.status}
                 disabled={false}
-                innerRef={ref}
+                innerRef={ref as React.RefObject<HTMLElement>}
             />
         </div>
     )
 }
-
 
 export default observer(forwardRef(TypingArea))

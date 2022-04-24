@@ -33,21 +33,13 @@ class Letters {
         this.currentLetter = newLetter
     }
 
-    // setMitstakesCounter(newValue: number) {
-    //     this.mistakesCounter = newValue
-    // }
-
     incrementMistakesCounter() {
         this.mistakesCounter += 1
     }
 
-    // incrementCurrentId() {
-    //     this.currentLetterId += 1
-    // }
-    //
-    // decrementCurrentId() {
-    //     this.currentLetterId -= 1
-    // }
+    resetMistakesCounter() {
+        this.mistakesCounter = 0
+    }
 
     setEnteredText(newText: string) {
         this.enteredText = newText

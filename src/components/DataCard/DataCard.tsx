@@ -3,7 +3,7 @@ import styles from "../CardList/cardList.module.scss"
 
 interface ICard {
     text: string
-    value: number
+    value: string
 }
 
 const DataCard: FC<ICard> = ({ text, value }) => {

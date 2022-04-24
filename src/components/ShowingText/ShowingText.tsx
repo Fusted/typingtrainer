@@ -4,7 +4,7 @@ import letters from "../../store/letters";
 import Letter from "../Letter/Letter";
 import styles from "../TypingArea/typingArea.module.scss"
 
-const  ShowingText = observer(() => {
+const  ShowingText = () => {
     const textArray = letters.text.split('').map((letter, index) => {
         return (
             <Fragment key={index.toString() + Math.random()}>
@@ -19,6 +19,6 @@ const  ShowingText = observer(() => {
     return (
         <div className={styles.area}>{textArray}</div>
     )
-})
+}
 
-export default ShowingText
+export default observer(ShowingText)
