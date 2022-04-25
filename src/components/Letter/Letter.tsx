@@ -10,7 +10,7 @@ interface ILetter {
 }
 
 const Letter = ({ letter, key, index }: ILetter) => {
-    // const [temp, setTemp] = useState(0)
+
     let className = styles.default
     const { text, enteredText } = letters
 
@@ -21,7 +21,7 @@ const Letter = ({ letter, key, index }: ILetter) => {
             className = styles.false
         }
 
-        if (index === letters.currentLetterId) {
+        if (index === letters.currentLetterId && !(letters.currentLetterId === 0 && enteredText.length !== 0)) {
             className += ` ${styles.active}`
         }
     }

@@ -23,14 +23,15 @@
     position: absolute;
     z-index: 0;
     top: 0;
-    left: -1px;
+    left: 50%;
+    transform: translateX(-50%);
     border: 1px solid #fff;
     background: none;
     padding-bottom: 0;
     height: calc(100% - 30px);
     opacity: 0;
-    //color: transparent;
-    //caret-color: green;
+    //opacity: 1;
+    //top: 350px;
 }
 
 .wrapper {

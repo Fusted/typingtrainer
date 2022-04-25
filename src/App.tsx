@@ -22,6 +22,11 @@ function App() {
         changeMainText()
     })
 
+    window.addEventListener('click', () => {
+        const selelection = window.getSelection() as Selection
+        console.log(selelection.focusOffset)
+    })
+
     return (
         <div className="App">
             <div className="container">

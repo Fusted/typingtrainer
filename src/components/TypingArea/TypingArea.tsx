@@ -25,8 +25,8 @@ const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
         }
 
         letters.setEnteredText(newHTML)
-        const sel = window.getSelection() as Selection
-        letters.setCurrentLetterId(sel.focusOffset)
+        const selelection = window.getSelection() as Selection
+        letters.setCurrentLetterId(selelection.focusOffset)
     }
 
     return (
