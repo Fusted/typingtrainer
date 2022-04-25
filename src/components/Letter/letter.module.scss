@@ -1,19 +1,20 @@
-.letter {
-    &_done {
-        opacity: 0.5;
-    }
+@import "../../styles/variables.scss";
 
-    &_active {
-        border-bottom: 2px solid #fff;
-    }
+.done {
+    color: $doneColor;
+    opacity: 0.5;
+}
 
-    &_false {
-        opacity: 0.5;
-        color: palevioletred;
-        border-bottom: 2px solid palevioletred;
-    }
+.active {
+    border-left: 2px solid #fff;
+}
 
-    &_default {
-        text-decoration: none;
-    }
+.false {
+    opacity: 1;
+    color: $falseColor;
+    //border-bottom: 2px solid palevioletred;
+}
+
+.default {
+    text-decoration: none;
 }

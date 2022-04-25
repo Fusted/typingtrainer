@@ -10,20 +10,23 @@ interface ILetter {
 }
 
 const Letter = ({ letter, key, index }: ILetter) => {
-    let className = styles.letter_default
+    // const [temp, setTemp] = useState(0)
+    let className = styles.default
     const { text, enteredText } = letters
 
     if (index <= enteredText.length) {
         if (index === letters.currentLetterId) {
-            className = styles.letter_active
+            className = styles.active
         } else {
             if (text[index] == enteredText[index]) {
-                className = styles.letter_done
+                className = styles.done
             } else {
-                className = styles.letter_false
+                className = styles.false
             }
         }
     }
+
+
 
     return (
         <span key={key} className={className} id={index.toString()}>
