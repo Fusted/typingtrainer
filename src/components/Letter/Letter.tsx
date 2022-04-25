@@ -15,18 +15,16 @@ const Letter = ({ letter, key, index }: ILetter) => {
     const { text, enteredText } = letters
 
     if (index <= enteredText.length) {
+        if (text[index] == enteredText[index]) {
+            className = styles.done
+        } else if (index < enteredText.length) {
+            className = styles.false
+        }
+
         if (index === letters.currentLetterId) {
-            className = styles.active
-        } else {
-            if (text[index] == enteredText[index]) {
-                className = styles.done
-            } else {
-                className = styles.false
-            }
+            className += ` ${styles.active}`
         }
     }
-
-
 
     return (
         <span key={key} className={className} id={index.toString()}>
