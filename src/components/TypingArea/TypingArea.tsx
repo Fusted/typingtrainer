@@ -20,24 +20,42 @@ const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
         }
         //inc mistakes
         const lastSymbolId = newHTML.length - 1
-        if (newHTML[lastSymbolId] != letters.text[lastSymbolId] && (newHTML.length > letters.enteredText.length)) {
+        if (
+            newHTML[lastSymbolId] != letters.text[lastSymbolId] &&
+            newHTML.length > letters.enteredText.length
+        ) {
             letters.incrementMistakesCounter()
         }
 
+        if (
+            letters.enteredText.length == 0 &&
+            contentHtml.innerHTML.length === 1 &&
+            !letters.status
+        ) {
+            letters.toggleStatus()
+        }
+
         letters.setEnteredText(newHTML)
-        const selelection = window.getSelection() as Selection
-        letters.setCurrentLetterId(selelection.focusOffset)
+        const selection = window.getSelection() as Selection
+        letters.setCurrentLetterId(selection.focusOffset)
     }
+
+    // const onFocus = () => {
+    //     if (!letters.status) {
+    //
+    //     }
+    // }
 
     return (
         <div className={styles.wrapper}>
             <ShowingText />
             <ContentEditable
+                // onFocus={onFocus}
                 className={cn(styles.area, styles.invisible)}
                 onChange={onChange}
                 html={letters.enteredText}
                 // disabled={!letters.status}
-                disabled={false}
+                disabled={!letters.editable}
                 innerRef={ref as React.RefObject<HTMLElement>}
             />
         </div>

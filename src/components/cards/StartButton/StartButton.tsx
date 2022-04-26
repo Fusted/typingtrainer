@@ -1,7 +1,7 @@
-import React, { FC } from "react"
-import letters from "../../store/letters"
+import React, {FC, useEffect} from "react"
+import letters from "../../../store/letters"
 import { observer } from "mobx-react-lite"
-import styles from "../CardList/cardList.module.scss"
+import style from "../cards.module.scss"
 
 export interface IButton {
     hiddenAreaRef: React.RefObject<HTMLElement>
@@ -10,34 +10,38 @@ export interface IButton {
 
 const ButtonStart: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
     const resetState = (): void => {
-        letters.toggleStatus()
+        letters.turnOffStatus()
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
         letters.setEnteredText("")
     }
 
-    const keyListener = (): void => {
+    const addSelectionListener = (): void => {
         document.addEventListener("selectionchange", () => {
             const cursorPosition = window.getSelection() as Selection
-            // console.log(cursorPosition.focusOffset)
             letters.setCurrentLetterId(cursorPosition.focusOffset)
         })
     }
 
     const onStart = (): void => {
         if (!letters.status && hiddenAreaRef) {
+            letters.setEditableTrue()
             hiddenAreaRef?.current?.focus()
-            keyListener()
         } else {
             changeMainText()
+            letters.setEditableTrue()
         }
         resetState()
     }
 
+    useEffect(() => {
+        addSelectionListener()
+    })
+
     const text = !letters.status ? "Start" : "Reset"
 
     return (
-        <div className={styles.button} onClick={onStart}>
+        <div className={style.button} onClick={onStart}>
             {text}
         </div>
     )

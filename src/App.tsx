@@ -3,11 +3,11 @@ import Service, {getRandomInt} from "./services/service"
 
 import TypingArea from "./components/TypingArea/TypingArea"
 import letters from "./store/letters"
-import CardList from "./components/CardList/CardList"
+import CardList from "./components/cards/CardList/CardList"
 import "./app.scss"
 
 function App() {
-    const hiddenAreaRef = createRef<HTMLElement>()
+
     const changeMainText = (): void => {
         const text = Service.getText()
         text.then((textsList) => {
@@ -22,10 +22,7 @@ function App() {
         changeMainText()
     })
 
-    window.addEventListener('click', () => {
-        const selelection = window.getSelection() as Selection
-        console.log(selelection.focusOffset)
-    })
+    const hiddenAreaRef = createRef<HTMLElement>()
 
     return (
         <div className="App">

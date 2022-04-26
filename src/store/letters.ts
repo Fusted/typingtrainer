@@ -13,12 +13,20 @@ class Letters {
 
     status = false
 
+    time = 60
+
+    editable = true
+
     constructor() {
         makeAutoObservable(this)
     }
 
     toggleStatus() {
         this.status = !this.status
+    }
+
+    turnOffStatus() {
+        this.status = false
     }
 
     setText(newText: string) {
@@ -44,6 +52,15 @@ class Letters {
     setEnteredText(newText: string) {
         this.enteredText = newText
     }
+
+    setEditableTrue() {
+        this.editable = true
+    }
+
+    setEditableFalse() {
+        this.editable = false
+    }
 }
+
 
 export default new Letters()

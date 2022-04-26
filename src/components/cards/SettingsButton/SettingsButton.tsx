@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import styles from '../CardList/cardList.module.scss'
+import styles from '../cards.module.scss'
 
 interface IButton {
     text?: string
