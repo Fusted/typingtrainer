@@ -4,13 +4,12 @@ import letters from "../../store/letters"
 import styles from "./letter.module.scss"
 
 interface ILetter {
+    focusStatus: boolean
     letter: string
-    key?: string
     index: number
 }
 
-const Letter = ({ letter, key, index }: ILetter) => {
-
+const Letter = ({ letter, index, focusStatus }: ILetter) => {
     let className = styles.default
     const { text, enteredText } = letters
 
@@ -21,13 +20,17 @@ const Letter = ({ letter, key, index }: ILetter) => {
             className = styles.false
         }
 
-        if (index === letters.currentLetterId && !(letters.currentLetterId === 0 && enteredText.length !== 0)) {
+        if (
+            index === letters.currentLetterId &&
+            !(letters.currentLetterId === 0 && enteredText.length !== 0) &&
+            focusStatus
+        ) {
             className += ` ${styles.active}`
         }
     }
 
     return (
-        <span key={key} className={className} id={index.toString()}>
+        <span className={className} id={index.toString()}>
             {letter}
         </span>
     )

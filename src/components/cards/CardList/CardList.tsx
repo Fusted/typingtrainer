@@ -7,12 +7,12 @@ import letters from "../../../store/letters"
 import styles from "../cards.module.scss"
 import TimerCard from "../TimerCard/TimerCard";
 
-interface CardListProps {
+interface ICardList {
     hiddenAreaRef: React.RefObject<HTMLElement>
     changeMainText: () => void
 }
 
-const CardList: FC<CardListProps> = ({ hiddenAreaRef, changeMainText }) => {
+const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
     const accuracyCounter = (total: number, incorrect: number) => {
         if (total === 0) {
             if (letters.mistakesCounter != 0) {

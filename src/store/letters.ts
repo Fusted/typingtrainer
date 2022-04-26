@@ -13,7 +13,7 @@ class Letters {
 
     status = false
 
-    time = 60
+    time = 10
 
     editable = true
 
@@ -59,6 +59,10 @@ class Letters {
 
     setEditableFalse() {
         this.editable = false
+    }
+
+    setTime(time: number) {
+        this.time = time
     }
 }
 

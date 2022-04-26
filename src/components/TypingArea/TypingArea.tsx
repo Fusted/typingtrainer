@@ -1,5 +1,5 @@
 import cn from "classnames"
-import React, { ForwardedRef, forwardRef } from "react"
+import React, { ForwardedRef, forwardRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable"
 import letters from "../../store/letters"
@@ -7,6 +7,8 @@ import styles from "./typingArea.module.scss"
 import ShowingText from "../ShowingText/ShowingText"
 
 const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
+    const [focusStatus, setFocusStatus] = useState(false)
+
     const onChange = (e: ContentEditableEvent): void => {
         const contentHtml: HTMLElement = e.currentTarget
         const nonBreakableSpace = "&nbsp;"
@@ -40,21 +42,23 @@ const TypingArea = (_ = {}, ref: ForwardedRef<HTMLElement> | null) => {
         letters.setCurrentLetterId(selection.focusOffset)
     }
 
-    // const onFocus = () => {
-    //     if (!letters.status) {
-    //
-    //     }
-    // }
+    const onFocus = (): void => {
+        setFocusStatus(true)
+    }
+
+    const onBlur = (): void => {
+        setFocusStatus(false)
+    }
 
     return (
         <div className={styles.wrapper}>
-            <ShowingText />
+            <ShowingText focusStatus={focusStatus} />
             <ContentEditable
-                // onFocus={onFocus}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 className={cn(styles.area, styles.invisible)}
                 onChange={onChange}
                 html={letters.enteredText}
-                // disabled={!letters.status}
                 disabled={!letters.editable}
                 innerRef={ref as React.RefObject<HTMLElement>}
             />

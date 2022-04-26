@@ -25,14 +25,17 @@ const ButtonStart: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
 
     const onStart = (): void => {
         if (!letters.status && hiddenAreaRef) {
-            letters.setEditableTrue()
             hiddenAreaRef?.current?.focus()
         } else {
             changeMainText()
-            letters.setEditableTrue()
         }
         resetState()
+        letters.setEditableTrue()
     }
+
+    useEffect(() => {
+        hiddenAreaRef.current?.focus()
+    })
 
     useEffect(() => {
         addSelectionListener()
