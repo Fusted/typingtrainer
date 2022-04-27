@@ -1,33 +1,35 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import { observer } from "mobx-react-lite"
 import letters from "../../store/letters"
 import styles from "./letter.module.scss"
+import cn from 'classnames'
 
 interface ILetter {
     focusStatus: boolean
     letter: string
     index: number
+    enteredText: string
 }
 
-const Letter = ({ letter, index, focusStatus }: ILetter) => {
-    let className = styles.default
-    const { text, enteredText } = letters
+const Letter = ({ letter, index, focusStatus, enteredText }: ILetter) => {
+    const [className, setClassname] = useState(styles.default)
 
-    if (index <= enteredText.length) {
-        if (text[index] == enteredText[index]) {
-            className = styles.done
-        } else if (index < enteredText.length) {
-            className = styles.false
-        }
+    const { text , currentLetterId } = letters
+    const isStart = !currentLetterId && enteredText.length
+    useEffect(() => {
+        if (index <= enteredText.length) {
+            if (text[index] == enteredText[index]) {
+                setClassname(styles.done)
+            } else if (index < enteredText.length) {
+                setClassname(styles.false)
+            }
 
-        if (
-            index === letters.currentLetterId &&
-            !(letters.currentLetterId === 0 && enteredText.length !== 0) &&
-            focusStatus
-        ) {
-            className += ` ${styles.active}`
+            if (index === currentLetterId && !isStart && focusStatus) {
+                setClassname(cn(className, styles.active))
+            }
         }
-    }
+    }, [letters.currentLetterId])
+
 
     return (
         <span className={className} id={index.toString()}>

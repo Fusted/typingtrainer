@@ -8,11 +8,14 @@ import styles from "../cards.module.scss"
 import TimerCard from "../TimerCard/TimerCard";
 
 interface ICardList {
+    enteredText: string
+    setNewEnteredText(newEnteredText: string): void
     hiddenAreaRef: React.RefObject<HTMLElement>
     changeMainText: () => void
+    selection: Selection | null
 }
 
-const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
+const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText, enteredText, setNewEnteredText, selection }) => {
     const accuracyCounter = (total: number, incorrect: number) => {
         if (total === 0) {
             if (letters.mistakesCounter != 0) {
@@ -24,18 +27,20 @@ const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
     }
 
     const accuracy = accuracyCounter(
-        letters.enteredText.length,
+        enteredText.length,
         letters.mistakesCounter
     )
 
     return (
         <div className={styles.cardList}>
             <StartButton
+                selection={selection}
                 hiddenAreaRef={hiddenAreaRef}
+                setNewEnteredText={setNewEnteredText}
                 changeMainText={changeMainText}
             />
             <DataCard text="Accuracy" value={`${accuracy} %`} />
-            <TimerCard />
+            <TimerCard enteredText={enteredText}/>
             <SettingsButton text="Settings" />
         </div>
     )

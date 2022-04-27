@@ -5,15 +5,13 @@ class Letters {
 
     currentLetter = ""
 
-    enteredText = ""
-
     mistakesCounter = 0
 
     text = ""
 
     status = false
 
-    time = 10
+    time = 60
 
     editable = true
 
@@ -47,10 +45,6 @@ class Letters {
 
     resetMistakesCounter() {
         this.mistakesCounter = 0
-    }
-
-    setEnteredText(newText: string) {
-        this.enteredText = newText
     }
 
     setEditableTrue() {

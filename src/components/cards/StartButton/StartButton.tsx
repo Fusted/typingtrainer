@@ -1,25 +1,34 @@
-import React, {FC, useEffect} from "react"
-import letters from "../../../store/letters"
+import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
+import letters from "../../../store/letters"
 import style from "../cards.module.scss"
 
+
+
 export interface IButton {
+    setNewEnteredText(newEnteredText: string): void
     hiddenAreaRef: React.RefObject<HTMLElement>
     changeMainText: () => void
+    selection: Selection | null
 }
 
-const ButtonStart: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
+const ButtonStart: FC<IButton> = ({
+    hiddenAreaRef,
+    changeMainText,
+    setNewEnteredText,
+    selection
+}) => {
     const resetState = (): void => {
         letters.turnOffStatus()
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
-        letters.setEnteredText("")
+        setNewEnteredText("")
     }
 
     const addSelectionListener = (): void => {
         document.addEventListener("selectionchange", () => {
-            const cursorPosition = window.getSelection() as Selection
-            letters.setCurrentLetterId(cursorPosition.focusOffset)
+            const pos = selection?.focusOffset
+            letters.setCurrentLetter(pos as never)
         })
     }
 
@@ -35,11 +44,8 @@ const ButtonStart: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
 
     useEffect(() => {
         hiddenAreaRef.current?.focus()
-    })
-
-    useEffect(() => {
         addSelectionListener()
-    })
+    }, [])
 
     const text = !letters.status ? "Start" : "Reset"
 

@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, FC } from "react"
 import styles from "../cards.module.scss"
 import letters from "../../../store/letters"
 import { observer } from "mobx-react-lite"
 
-const TimerCard = () => {
+interface ITimerCard {
+    enteredText: string
+}
+
+const TimerCard: FC<ITimerCard> = ({enteredText}) => {
     const [timerStatus, setTimerStatus] = useState<boolean>(false)
     const [time, setTime] = useState<number>(letters.time)
 
@@ -38,7 +42,7 @@ const TimerCard = () => {
             //сделать нормальный визуал
             console.log(
                 `Your speed is ${speedCounter(
-                    letters.enteredText,
+                    enteredText,
                     letters.text
                 )} SPM`
             )
