@@ -20,14 +20,15 @@ const ShowingText: FC<IShowingText> = ({ enteredText, focusStatus }) => {
                         focusStatus={focusStatus}
                         index={index}
                         letter={letter}
+                        expectedLetter={letters.text[index]}
+                        currentLetterId={letters.currentLetterId}
                     />
                 </Fragment>
             )
         })
     }
-
+    console.log('+')
     const formattedText = formatText(letters.text)
-    // console.log(letters.currentLetterId)
     return <div className={styles.area}>{formattedText}</div>
 }
 
