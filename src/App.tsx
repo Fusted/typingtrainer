@@ -28,20 +28,18 @@ function App() {
         changeMainText()
     }, [])
 
-    const hiddenAreaRef = createRef<HTMLElement>()
-    const selection = window.getSelection()
+    const hiddenAreaRef = createRef<HTMLTextAreaElement>()
+
     return (
         <div className="App">
             <div className="container">
                 <TypingArea
-                    selection={selection}
                     changeMainText={changeMainText}
                     enteredText={enteredText}
                     setNewEnteredText={setNewEnteredText}
                     ref={hiddenAreaRef}
                 />
                 <CardList
-                    selection={selection}
                     enteredText={enteredText}
                     setNewEnteredText={setNewEnteredText}
                     hiddenAreaRef={hiddenAreaRef}

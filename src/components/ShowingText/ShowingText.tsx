@@ -27,7 +27,7 @@ const ShowingText: FC<IShowingText> = ({ enteredText, focusStatus }) => {
             )
         })
     }
-    console.log('+')
+    // console.log('+')
     const formattedText = formatText(letters.text)
     return <div className={styles.area}>{formattedText}</div>
 }

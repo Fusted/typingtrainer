@@ -1,7 +1,12 @@
 import cn from "classnames"
-import React, { ForwardedRef, forwardRef, useState } from "react"
+import React, {
+    ForwardedRef,
+    forwardRef,
+    useState,
+    SyntheticEvent,
+    useCallback,
+} from "react"
 import { observer } from "mobx-react-lite"
-import ContentEditable, { ContentEditableEvent } from "react-contenteditable"
 import letters from "../../store/letters"
 import styles from "./typingArea.module.scss"
 import ShowingText from "../ShowingText/ShowingText"
@@ -10,55 +15,51 @@ interface TypingAreaProps {
     enteredText: string
     setNewEnteredText(newEnteredText: string): void
     changeMainText(): void
-    selection: Selection | null
 }
 
 const TypingArea = (
-    { enteredText, setNewEnteredText, changeMainText, selection }: TypingAreaProps,
-    ref: ForwardedRef<HTMLElement>
+    { enteredText, setNewEnteredText, changeMainText }: TypingAreaProps,
+    ref: ForwardedRef<HTMLTextAreaElement>
 ) => {
     const [focusStatus, setFocusStatus] = useState(false)
 
-    const onChange = (e: ContentEditableEvent): void => {
-        const contentHtml: HTMLElement = e.currentTarget
-        const newHTML = contentHtml.innerText
+    const onChange = useCallback(
+        (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+            const enteredText = e.target.value
+            const lastSymbolId = enteredText.length - 1
+            const isInCorrect =
+                enteredText[lastSymbolId] != letters.text[lastSymbolId] &&
+                enteredText.length > enteredText.length
 
-        //fixing spaces
-        // const nonBreakableSpace = "&nbsp;"
-        // if (
-        //     contentHtml.innerHTML.slice(-nonBreakableSpace.length) ==
-        //     nonBreakableSpace
-        // ) {
-        //     newHTML = `${newHTML.slice(0, newHTML.length - 1)} `
-        // }
-        //inc mistakes
-        const lastSymbolId = newHTML.length - 1
-        if (
-            newHTML[lastSymbolId] != letters.text[lastSymbolId] &&
-            newHTML.length > enteredText.length
-        ) {
-            letters.incrementMistakesCounter()
-        }
+            if (isInCorrect) {
+                letters.incrementMistakesCounter()
+            }
 
-        if (
-            enteredText.length == 0 &&
-            contentHtml.innerHTML.length === 1 &&
-            !letters.status
-        ) {
-            letters.toggleStatus()
-        }
+            if (!enteredText.length && !letters.status) {
+                letters.setStatusFalse()
+            }
 
-        setNewEnteredText(newHTML)
+            if (enteredText.length && !letters.status) {
+                letters.setStatusTrue()
+            }
 
-        letters.setCurrentLetterId(selection?.focusOffset as any)
-    }
+            setNewEnteredText(enteredText)
+        },
+        [setNewEnteredText]
+    )
 
-    const onFocus = (): void => {
+    const onFocus = useCallback((): void => {
         setFocusStatus(true)
-    }
+    }, [])
 
     const onBlur = (): void => {
         setFocusStatus(false)
+    }
+
+    const onSelect = (e: SyntheticEvent<HTMLTextAreaElement, Event>) => {
+        if (e.target instanceof HTMLTextAreaElement) {
+            letters.setCurrentLetterId(e.target.selectionStart ?? 0)
+        }
     }
 
     return (
@@ -66,15 +67,17 @@ const TypingArea = (
             <ShowingText
                 changeMainText={changeMainText}
                 enteredText={enteredText}
-                focusStatus={focusStatus} />
-            <ContentEditable
+                focusStatus={focusStatus}
+            />
+            <textarea
                 onFocus={onFocus}
                 onBlur={onBlur}
-                className={cn(styles.area, styles.invisible)}
+                className={cn(styles.area, styles.input)}
+                onSelect={onSelect}
                 onChange={onChange}
-                html={enteredText}
                 disabled={!letters.editable}
-                innerRef={ref as React.RefObject<HTMLElement>}
+                ref={ref}
+                value={enteredText}
             />
         </div>
     )

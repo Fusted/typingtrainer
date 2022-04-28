@@ -7,50 +7,40 @@ import style from "../cards.module.scss"
 
 export interface IButton {
     setNewEnteredText(newEnteredText: string): void
-    hiddenAreaRef: React.RefObject<HTMLElement>
+    hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
     changeMainText: () => void
-    selection: Selection | null
 }
 
 const ButtonStart: FC<IButton> = ({
     hiddenAreaRef,
     changeMainText,
     setNewEnteredText,
-    selection
 }) => {
     const resetState = (): void => {
-        letters.turnOffStatus()
+        letters.setStatusFalse()
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
         setNewEnteredText("")
     }
 
-    const addSelectionListener = (): void => {
-        document.addEventListener("selectionchange", () => {
-            const pos = selection?.focusOffset
-            letters.setCurrentLetter(pos as never)
-        })
-    }
-
-    const onStart = (): void => {
-        if (!letters.status && hiddenAreaRef) {
-            hiddenAreaRef?.current?.focus()
-        } else {
+    const onClick = (): void => {
+        if (letters.status && hiddenAreaRef) {
             changeMainText()
+            setNewEnteredText('')
         }
+        hiddenAreaRef?.current?.focus()
         resetState()
         letters.setEditableTrue()
     }
 
     useEffect(() => {
         hiddenAreaRef.current?.focus()
-        addSelectionListener()
-    }, [])
+    }, [hiddenAreaRef])
 
-    const text = !letters.status ? "Start" : "Reset"
+    const text = letters.status ? "Reset" : "Start"
 
     return (
-        <div className={style.button} onClick={onStart}>
+        <div className={style.button} onClick={onClick}>
             {text}
         </div>
     )

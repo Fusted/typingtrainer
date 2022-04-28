@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import letters from "../../store/letters"
+import React, { useMemo} from "react"
 import styles from "./letter.module.scss"
 import cn from "classnames"
 
@@ -20,22 +19,27 @@ const Letter = ({
     expectedLetter,
     currentLetterId,
 }: ILetter) => {
-    const [className, setClassname] = useState(styles.default)
 
     const isStart = !currentLetterId && enteredText.length
-    useEffect(() => {
+
+    const className: string = useMemo(() => {
+        let setClassname = styles.default
+
         if (index <= enteredText.length) {
             if (expectedLetter == enteredText[index]) {
-                setClassname(styles.done)
+                setClassname = styles.done
             } else if (index < enteredText.length) {
-                setClassname(styles.false)
+                setClassname = styles.false
             }
 
             if (index === currentLetterId && !isStart && focusStatus) {
-                setClassname(cn(className, styles.active))
+                setClassname = cn(setClassname, styles.active)
             }
         }
-    }, [letters.currentLetterId])
+        
+        return setClassname;
+    }, [currentLetterId, enteredText, expectedLetter, focusStatus, index, isStart])
+
 
     return (
         <span className={className} id={index.toString()}>

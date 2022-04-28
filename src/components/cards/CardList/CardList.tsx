@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, {FC, useCallback} from "react"
 import { observer } from "mobx-react-lite"
 import StartButton from "../StartButton/StartButton"
 import SettingsButton from "../SettingsButton/SettingsButton"
@@ -10,13 +10,12 @@ import TimerCard from "../TimerCard/TimerCard";
 interface ICardList {
     enteredText: string
     setNewEnteredText(newEnteredText: string): void
-    hiddenAreaRef: React.RefObject<HTMLElement>
+    hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
     changeMainText: () => void
-    selection: Selection | null
 }
 
-const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText, enteredText, setNewEnteredText, selection }) => {
-    const accuracyCounter = (total: number, incorrect: number) => {
+const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText, enteredText, setNewEnteredText }) => {
+    const accuracyCounter = useCallback((total: number, incorrect: number) => {
         if (total === 0) {
             if (letters.mistakesCounter != 0) {
                 letters.resetMistakesCounter()
@@ -24,7 +23,7 @@ const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText, enteredText, s
             return 100
         }
         return 100 - Math.ceil((incorrect / total) * 100)
-    }
+    }, [])
 
     const accuracy = accuracyCounter(
         enteredText.length,
@@ -34,7 +33,6 @@ const CardList: FC<ICardList> = ({ hiddenAreaRef, changeMainText, enteredText, s
     return (
         <div className={styles.cardList}>
             <StartButton
-                selection={selection}
                 hiddenAreaRef={hiddenAreaRef}
                 setNewEnteredText={setNewEnteredText}
                 changeMainText={changeMainText}

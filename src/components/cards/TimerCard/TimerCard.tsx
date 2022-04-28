@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react"
+import React, { useState, useEffect, FC, useCallback } from "react"
 import styles from "../cards.module.scss"
 import letters from "../../../store/letters"
 import { observer } from "mobx-react-lite"
@@ -7,23 +7,23 @@ interface ITimerCard {
     enteredText: string
 }
 
-const TimerCard: FC<ITimerCard> = ({enteredText}) => {
+const TimerCard: FC<ITimerCard> = ({ enteredText }) => {
     const [timerStatus, setTimerStatus] = useState<boolean>(false)
     const [time, setTime] = useState<number>(letters.time)
 
     const id = React.useRef<number | undefined>()
-    const speedCounter = (
-        inputtedText: string,
-        templateText: string
-    ): number => {
-        let speed = 0
-        inputtedText.split("").forEach((letter, index) => {
-            if (letter == templateText[index]) {
-                speed++
-            }
-        })
-        return speed
-    }
+    const speedCounter = useCallback(
+        (inputtedText: string, templateText: string): number => {
+            let speed = 0
+            inputtedText.split("").forEach((letter, index) => {
+                if (letter == templateText[index]) {
+                    speed++
+                }
+            })
+            return speed
+        },
+        []
+    )
 
     useEffect(() => {
         // timer run
@@ -41,13 +41,10 @@ const TimerCard: FC<ITimerCard> = ({enteredText}) => {
             setTimerStatus(false)
             //сделать нормальный визуал
             console.log(
-                `Your speed is ${speedCounter(
-                    enteredText,
-                    letters.text
-                )} SPM`
+                `Your speed is ${speedCounter(enteredText, letters.text)} SPM`
             )
         }
-    }, [letters.status, time, letters.editable])
+    }, [time, timerStatus, enteredText, speedCounter])
 
     return <div className={styles.card}>Time left: {time}</div>
 }

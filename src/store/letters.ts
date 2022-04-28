@@ -19,11 +19,12 @@ class Letters {
         makeAutoObservable(this)
     }
 
-    toggleStatus() {
-        this.status = !this.status
+
+    setStatusTrue() {
+        this.status = true
     }
 
-    turnOffStatus() {
+    setStatusFalse() {
         this.status = false
     }
 
