@@ -11,7 +11,7 @@ class Letters {
 
     status = false
 
-    time = 60
+    time = 5
 
     editable = true
 

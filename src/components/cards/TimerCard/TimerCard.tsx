@@ -27,7 +27,8 @@ const TimerCard: FC<ITimerCard> = ({ enteredText }) => {
 
     useEffect(() => {
         // timer run
-        if (!timerStatus && letters.status && letters.editable) {
+        const isGetStarted = !timerStatus && letters.status && letters.editable
+        if (isGetStarted) {
             setTimerStatus(true)
             id.current = window.setInterval(() => {
                 setTime((time) => time - 1)
@@ -44,6 +45,13 @@ const TimerCard: FC<ITimerCard> = ({ enteredText }) => {
                 `Your speed is ${speedCounter(enteredText, letters.text)} SPM`
             )
         }
+
+        if (!enteredText) {
+            setTime(letters.time)
+            window.clearInterval(id.current)
+            setTimerStatus(false)
+        }
+
     }, [time, timerStatus, enteredText, speedCounter])
 
     return <div className={styles.card}>Time left: {time}</div>
