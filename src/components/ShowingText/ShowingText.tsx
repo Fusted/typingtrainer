@@ -29,7 +29,7 @@ const ShowingText: FC<IShowingText> = ({ enteredText, focusStatus }) => {
     }
     // console.log('+')
     const formattedText = formatText(letters.text)
-    return <div className={styles.area}>{formattedText}</div>
+    return <div tabIndex={0} className={styles.area}>{formattedText}</div>
 }
 
 export default observer(ShowingText)

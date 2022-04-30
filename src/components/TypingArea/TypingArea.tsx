@@ -29,7 +29,7 @@ const TypingArea = (
             const lastSymbolId = enteredText.length - 1
             const isInCorrect =
                 enteredText[lastSymbolId] != letters.text[lastSymbolId] &&
-                enteredText.length > enteredText.length
+                enteredText.length > 0
 
             if (isInCorrect) {
                 letters.incrementMistakesCounter()

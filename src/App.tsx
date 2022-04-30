@@ -3,8 +3,9 @@ import Service, {getRandomInt} from "./services/service"
 
 import TypingArea from "./components/TypingArea/TypingArea"
 import letters from "./store/letters"
-import CardList from "./components/cards/CardList/CardList"
+import CardList from "./components/cards/ButtonsList/ButtonsList"
 import "./app.scss"
+import StatsList from "./components/cards/StatsList/StatsList";
 
 type enteredText = string
 
@@ -33,6 +34,9 @@ function App() {
     return (
         <div className="App">
             <div className="container">
+                <StatsList
+                    enteredText={enteredText}
+                />
                 <TypingArea
                     changeMainText={changeMainText}
                     enteredText={enteredText}
@@ -40,7 +44,6 @@ function App() {
                     ref={hiddenAreaRef}
                 />
                 <CardList
-                    enteredText={enteredText}
                     setNewEnteredText={setNewEnteredText}
                     hiddenAreaRef={hiddenAreaRef}
                     changeMainText={changeMainText}
