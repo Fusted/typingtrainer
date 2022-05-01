@@ -4,15 +4,13 @@ import letters from "../../../store/letters"
 import style from "../cards.module.scss"
 
 export interface IButton {
-    setNewEnteredText(newEnteredText: string): void
     hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
     changeMainText: () => void
 }
 
 const ResetButton: FC<IButton> = ({
     hiddenAreaRef,
-    changeMainText,
-    setNewEnteredText,
+    changeMainText
 }) => {
     const resetRef = createRef<HTMLDivElement>()
     const resetState = useCallback((): void => {
@@ -20,17 +18,17 @@ const ResetButton: FC<IButton> = ({
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
         letters.resetMistakesCounter()
-        setNewEnteredText("")
-    }, [setNewEnteredText])
+        letters.setEnteredText('')
+    }, [letters.setEnteredText])
 
     const onReset = useCallback((): void => {
         // if (letters.status && hiddenAreaRef) {
         changeMainText()
-        setNewEnteredText("")
+        letters.setEnteredText('')
         hiddenAreaRef?.current?.focus()
         resetState()
         letters.setEditableTrue()
-    }, [changeMainText, hiddenAreaRef, resetState, setNewEnteredText])
+    }, [changeMainText, hiddenAreaRef, resetState, letters.setEnteredText])
 
     const onKeyReset = (e: KeyboardEvent) => {
         if (e.code === 'Enter') {

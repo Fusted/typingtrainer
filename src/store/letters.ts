@@ -1,11 +1,15 @@
 import { makeAutoObservable } from "mobx"
 
 class Letters {
+    enteredText = ''
+
     currentLetterId = 0
 
     currentLetter = ""
 
     mistakesCounter = 0
+
+    focusStatus = false
 
     text = ""
 
@@ -19,9 +23,16 @@ class Letters {
         makeAutoObservable(this)
     }
 
+    setEnteredText(newText: string) {
+        this.enteredText = newText
+    }
 
     setStatusTrue() {
         this.status = true
+    }
+
+    setFocusStatus(status: boolean) {
+        this.focusStatus = status
     }
 
     setStatusFalse() {

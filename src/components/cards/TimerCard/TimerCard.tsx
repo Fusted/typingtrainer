@@ -4,12 +4,11 @@ import letters from "../../../store/letters"
 import { observer } from "mobx-react-lite"
 
 interface ITimerCard {
-    enteredText: string
     time: number,
     setTime: Dispatch<SetStateAction<number>>
 }
 
-const TimerCard: FC<ITimerCard> = ({ enteredText, time, setTime }) => {
+const TimerCard: FC<ITimerCard> = ({ time, setTime }) => {
     const [timerStatus, setTimerStatus] = useState<boolean>(false)
     const id = React.useRef<number | undefined>()
 
@@ -31,13 +30,13 @@ const TimerCard: FC<ITimerCard> = ({ enteredText, time, setTime }) => {
             setTimerStatus(false)
         }
 
-        if (!enteredText) {
+        if (!letters.enteredText) {
             setTime(letters.time)
             window.clearInterval(id.current)
             setTimerStatus(false)
         }
 
-    }, [time, timerStatus, enteredText, setTime])
+    }, [time, timerStatus, letters.enteredText, setTime])
 
     return <div className={styles.card}>Time left: {time}</div>
 }

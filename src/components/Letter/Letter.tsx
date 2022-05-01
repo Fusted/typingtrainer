@@ -1,25 +1,20 @@
 import React, { useMemo} from "react"
 import styles from "./letter.module.scss"
 import cn from "classnames"
+import {observer} from "mobx-react-lite";
+import letters from "../../store/letters";
 
 interface ILetter {
-    focusStatus: boolean
     letter: string
     index: number
-    enteredText: string
-    expectedLetter: string
-    currentLetterId: number
 }
 
 const Letter = ({
     letter,
     index,
-    focusStatus,
-    enteredText,
-    expectedLetter,
-    currentLetterId,
 }: ILetter) => {
-
+    const {currentLetterId, enteredText, focusStatus} = letters
+    const expectedLetter = letters.text[index]
     const isStart = !currentLetterId && enteredText.length
 
     const className: string = useMemo(() => {
@@ -48,4 +43,4 @@ const Letter = ({
     )
 }
 
-export default Letter
+export default observer(Letter)

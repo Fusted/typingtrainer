@@ -1,22 +1,19 @@
 import React, {FC} from "react"
-import { observer } from "mobx-react-lite"
 import StartButton from "../ResetButton/ResetButton"
 import SettingsButton from "../SettingsButton/SettingsButton"
 import styles from "../cards.module.scss"
 
 interface ICardList {
-    setNewEnteredText(newEnteredText: string): void
     hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
     changeMainText: () => void
 }
 
-const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText,  setNewEnteredText }) => {
+const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
 
     return (
         <div className={styles.cardList}>
             <StartButton
                 hiddenAreaRef={hiddenAreaRef}
-                setNewEnteredText={setNewEnteredText}
                 changeMainText={changeMainText}
             />
             <SettingsButton text="Settings" />
@@ -24,4 +21,4 @@ const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText,  setNewEnte
     )
 }
 
-export default observer(ButtonsList)
+export default ButtonsList

@@ -1,16 +1,15 @@
-import React, {createRef, useEffect, useState} from "react"
+import React, {createRef, useEffect} from "react"
 import Service, {getRandomInt} from "./services/service"
 
 import TypingArea from "./components/TypingArea/TypingArea"
 import letters from "./store/letters"
-import CardList from "./components/cards/ButtonsList/ButtonsList"
+import ButtonsList from "./components/cards/ButtonsList/ButtonsList"
 import "./app.scss"
 import StatsList from "./components/cards/StatsList/StatsList";
 
-type enteredText = string
+
 
 function App() {
-    const [enteredText, setEnteredText] = useState<enteredText>('')
     const changeMainText = (): void => {
         const text = Service.getText()
         text.then((textsList) => {
@@ -19,10 +18,6 @@ function App() {
 
             letters.setText(newText)
         })
-    }
-
-    const setNewEnteredText = (newEnteredText: string):void => {
-        setEnteredText(newEnteredText)
     }
 
     useEffect(() => {
@@ -34,17 +29,12 @@ function App() {
     return (
         <div className="App">
             <div className="container">
-                <StatsList
-                    enteredText={enteredText}
-                />
+                <StatsList/>
                 <TypingArea
                     changeMainText={changeMainText}
-                    enteredText={enteredText}
-                    setNewEnteredText={setNewEnteredText}
                     ref={hiddenAreaRef}
                 />
-                <CardList
-                    setNewEnteredText={setNewEnteredText}
+                <ButtonsList
                     hiddenAreaRef={hiddenAreaRef}
                     changeMainText={changeMainText}
                 />

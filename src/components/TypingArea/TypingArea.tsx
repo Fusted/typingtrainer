@@ -2,7 +2,6 @@ import cn from "classnames"
 import React, {
     ForwardedRef,
     forwardRef,
-    useState,
     SyntheticEvent,
     useCallback,
 } from "react"
@@ -12,16 +11,13 @@ import styles from "./typingArea.module.scss"
 import ShowingText from "../ShowingText/ShowingText"
 
 interface TypingAreaProps {
-    enteredText: string
-    setNewEnteredText(newEnteredText: string): void
     changeMainText(): void
 }
 
 const TypingArea = (
-    { enteredText, setNewEnteredText, changeMainText }: TypingAreaProps,
+    { changeMainText }: TypingAreaProps,
     ref: ForwardedRef<HTMLTextAreaElement>
 ) => {
-    const [focusStatus, setFocusStatus] = useState(false)
 
     const onChange = useCallback(
         (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -42,18 +38,18 @@ const TypingArea = (
             if (enteredText.length && !letters.status) {
                 letters.setStatusTrue()
             }
+            letters.setEnteredText(enteredText)
 
-            setNewEnteredText(enteredText)
         },
-        [setNewEnteredText]
+        []
     )
 
     const onFocus = useCallback((): void => {
-        setFocusStatus(true)
+        letters.setFocusStatus(true)
     }, [])
 
     const onBlur = (): void => {
-        setFocusStatus(false)
+        letters.setFocusStatus(false)
     }
 
     const onSelect = (e: SyntheticEvent<HTMLTextAreaElement, Event>) => {
@@ -66,8 +62,7 @@ const TypingArea = (
         <div className={styles.wrapper}>
             <ShowingText
                 changeMainText={changeMainText}
-                enteredText={enteredText}
-                focusStatus={focusStatus}
+                text={letters.text}
             />
             <textarea
                 onFocus={onFocus}
@@ -77,7 +72,7 @@ const TypingArea = (
                 onChange={onChange}
                 disabled={!letters.editable}
                 ref={ref}
-                value={enteredText}
+                value={letters.enteredText}
             />
         </div>
     )
