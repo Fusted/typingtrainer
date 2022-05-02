@@ -45,6 +45,7 @@ const StatsList: FC = () => {
         <div className={styles.cardList}>
             <DataCard text="Accuracy" value={`${accuracy} %`} />
             <DataCard text="Speed" value={`${speed} LPM`} />
+            <DataCard text="Mistakes" value={letters.mistakesCounter}></DataCard>
             <TimerCard time={time} setTime={setTime} />
         </div>
     )

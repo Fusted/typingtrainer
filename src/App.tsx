@@ -28,7 +28,6 @@ function App() {
             <div className="container">
                 <StatsList />
                 <TypingArea
-                    changeMainText={changeMainText}
                     ref={hiddenAreaRef}
                 />
                 <ButtonsList
