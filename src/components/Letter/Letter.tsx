@@ -13,31 +13,35 @@ const Letter = ({
     letter,
     index,
 }: ILetter) => {
-    const {currentLetterId, enteredText, focusStatus} = letters
+
     const expectedLetter = letters.text[index]
-    const isStart = !currentLetterId && enteredText.length
+    const isStart = !letters.currentLetterId && letters.enteredText.length
+    const isNotDefault = index <= letters.enteredText.length
+    const isCorrect = expectedLetter == letters.enteredText[index]
+    const isInCorrect = index < letters.enteredText.length
+    const isCursor = index === letters.currentLetterId && !isStart && letters.focusStatus
 
     const className: string = useMemo(() => {
         let setClassname = styles.default
 
-        if (index <= enteredText.length) {
-            if (expectedLetter == enteredText[index]) {
+        if (isNotDefault) {
+            if (isCorrect) {
                 setClassname = styles.done
-            } else if (index < enteredText.length) {
+            } else if (isInCorrect) {
                 setClassname = styles.false
             }
 
-            if (index === currentLetterId && !isStart && focusStatus) {
+            if (isCursor) {
                 setClassname = cn(setClassname, styles.active)
             }
         }
-        
+
         return setClassname;
-    }, [currentLetterId, enteredText, expectedLetter, focusStatus, index, isStart])
+    }, [isCursor, isInCorrect, isCorrect, isNotDefault])
 
 
     return (
-        <span className={className} id={index.toString()}>
+        <span className={className}>
             {letter}
         </span>
     )

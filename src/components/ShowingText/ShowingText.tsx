@@ -1,29 +1,36 @@
-import React, { Fragment, FC } from "react"
+import React, {Fragment, FC, useState, useEffect, memo} from "react"
 import Letter from "../Letter/Letter"
 import styles from "../TypingArea/typingArea.module.scss"
 
-
 interface IShowingText {
-    changeMainText(): void
     text: string
 }
-
+const formatText = (text: string) => {
+    return text.split("").map((letter, index) => {
+        return (
+            <Fragment key={index}>
+                <Letter index={index} letter={letter} />
+            </Fragment>
+        )
+    })
+}
 const ShowingText: FC<IShowingText> = ({ text }) => {
-    const formatText = (text: string) => {
-        return text.split("").map((letter, index) => {
-            return (
-                <Fragment key={index}>
-                    <Letter
-                        index={index}
-                        letter={letter}
-                    />
-                </Fragment>
-            )
-        })
-    }
+    const [textArray, setTextArray] = useState<JSX.Element[]>()
 
-    const formattedText = formatText(text)
-    return <div className={styles.area}>{formattedText}</div>
+    useEffect(() => {
+        setTextArray(formatText(text))
+    }, [text])
+
+    return (
+        <div className={styles.area}>
+            {textArray}
+        </div>
+    )
 }
 
-export default ShowingText
+const compProps = (prev: Readonly<React.PropsWithChildren<IShowingText>>, next:  Readonly<React.PropsWithChildren<IShowingText>>) => {
+    return prev.text == next.text;
+
+}
+
+export default memo(ShowingText, compProps)

@@ -61,7 +61,6 @@ const TypingArea = (
     return (
         <div className={styles.wrapper}>
             <ShowingText
-                changeMainText={changeMainText}
                 text={letters.text}
             />
             <textarea
