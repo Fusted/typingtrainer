@@ -1,7 +1,8 @@
 import React, {FC} from "react"
-import StartButton from "../ResetButton/ResetButton"
-import SettingsButton from "../SettingsButton/SettingsButton"
+import ResetButton from "../ResetButton/ResetButton"
+import LanguageButton from "../LanguageButton/LanguageButton"
 import styles from "../cards.module.scss"
+
 
 interface ICardList {
     hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
@@ -12,11 +13,11 @@ const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
 
     return (
         <div className={styles.cardList}>
-            <StartButton
+            <ResetButton
                 hiddenAreaRef={hiddenAreaRef}
                 changeMainText={changeMainText}
             />
-            <SettingsButton text="Settings" />
+            <LanguageButton />
         </div>
     )
 }
