@@ -1,10 +1,9 @@
 import React, { ForwardedRef, forwardRef} from "react"
 import { observer } from "mobx-react-lite"
-import letters from "../../store/letters"
-import styles from "./typingArea.module.scss"
 import ShowingText from "../ShowingText/ShowingText"
 import InputArea from "../InputArea/InputArea"
-
+import letters from "../../store/letters"
+import styles from "./typingArea.module.scss"
 
 const TypingArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
 

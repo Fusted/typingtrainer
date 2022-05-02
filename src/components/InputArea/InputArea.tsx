@@ -1,15 +1,15 @@
 import React, {
     ChangeEvent,
-    ForwardedRef, forwardRef,
+    ForwardedRef,
+    forwardRef,
     SyntheticEvent,
     useCallback,
     useState,
 } from "react"
-import letters from "../../store/letters"
-import cn from "classnames"
-import styles from "../TypingArea/typingArea.module.scss"
 import { observer } from "mobx-react-lite"
-
+import cn from "classnames"
+import letters from "../../store/letters"
+import styles from "../TypingArea/typingArea.module.scss"
 
 const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     const [prevTextLength, setPrevTextLength] = useState(0)
@@ -33,7 +33,10 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
             if (enteredText.length && !letters.status) {
                 letters.setStatusTrue()
             }
-            letters.setEnteredText(enteredText)
+            if (!enteredText.includes("\n")) {
+                letters.setEnteredText(enteredText)
+            }
+
             setPrevTextLength(letters.enteredText.length)
         },
         []
