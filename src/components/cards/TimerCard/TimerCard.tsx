@@ -34,7 +34,6 @@ const TimerCard: FC<ITimerCard> = ({ time, setTime }) => {
             window.clearInterval(id.current)
             setTimerStatus(false)
             letters.setShouldReset(false)
-            console.log('reset')
         }
 
     }, [time, timerStatus, letters.enteredText, setTime])

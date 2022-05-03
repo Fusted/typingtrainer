@@ -18,12 +18,10 @@ const ResetButton: FC<IButton> = ({
         letters.setCurrentLetterId(0)
         letters.setCurrentLetter(letters.text[0])
         letters.resetMistakesCounter()
-        letters.setEnteredText('')
     }, [letters.setEnteredText])
 
     const onReset = useCallback((): void => {
         letters.setShouldReset(true)
-        letters.setEnteredText('')
         letters.setEditableTrue()
         letters.resetMistakesCounter()
         changeMainText()
