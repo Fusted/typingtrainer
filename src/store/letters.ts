@@ -5,6 +5,8 @@ class Letters {
 
     currentLetterId = 0
 
+    shouldReset = false
+
     currentLetter = ""
 
     mistakesCounter = 0
@@ -70,6 +72,11 @@ class Letters {
     setTime(time: number) {
         this.time = time
     }
+
+    setShouldReset(value: boolean) {
+        this.shouldReset = value
+    }
+
 }
 
 

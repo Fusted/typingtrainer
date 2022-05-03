@@ -11,10 +11,7 @@ const StatsList: FC = () => {
     const [accuracy, setAccuracy] = useState(100)
 
     const accuracyCounter = useCallback((total: number, incorrect: number) => {
-        if (total === 0) {
-            if (letters.mistakesCounter != 0) {
-                letters.resetMistakesCounter()
-            }
+        if (!total && incorrect) {
             return 100
         }
         const accuracy = 100 - Math.ceil((incorrect / total) * 100)
@@ -45,7 +42,7 @@ const StatsList: FC = () => {
         <div className={styles.cardList}>
             <DataCard text="Accuracy" value={`${accuracy} %`} />
             <DataCard text="Speed" value={`${speed} LPM`} />
-            <DataCard text="Mistakes" value={letters.mistakesCounter}></DataCard>
+            <DataCard text="Mistakes" value={letters.mistakesCounter} />
             <TimerCard time={time} setTime={setTime} />
         </div>
     )

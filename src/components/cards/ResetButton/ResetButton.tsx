@@ -22,12 +22,13 @@ const ResetButton: FC<IButton> = ({
     }, [letters.setEnteredText])
 
     const onReset = useCallback((): void => {
-        // if (letters.status && hiddenAreaRef) {
-        changeMainText()
+        letters.setShouldReset(true)
         letters.setEnteredText('')
+        letters.setEditableTrue()
+        letters.resetMistakesCounter()
+        changeMainText()
         hiddenAreaRef?.current?.focus()
         resetState()
-        letters.setEditableTrue()
     }, [changeMainText, hiddenAreaRef, resetState, letters.setEnteredText])
 
     const onKeyReset = (e: KeyboardEvent) => {

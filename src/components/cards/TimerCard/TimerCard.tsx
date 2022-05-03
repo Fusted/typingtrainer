@@ -24,16 +24,16 @@ const TimerCard: FC<ITimerCard> = ({ time, setTime }) => {
         }
         //timer stop
         if (time === 0 && timerStatus) {
-            // setTime(letters.time)
             letters.setEditableFalse()
             window.clearInterval(id.current)
             setTimerStatus(false)
         }
-
-        if (!letters.enteredText) {
+        // reset timer
+        if (letters.shouldReset) {
             setTime(letters.time)
             window.clearInterval(id.current)
             setTimerStatus(false)
+            letters.setShouldReset(false)
         }
 
     }, [time, timerStatus, letters.enteredText, setTime])
