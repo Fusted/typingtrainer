@@ -12,6 +12,7 @@ const ResetButton: FC<IButton> = ({
     hiddenAreaRef,
     changeMainText
 }) => {
+    // Todo: Можно вынести из компонента и не юзать useCallBack
     const resetRef = createRef<HTMLDivElement>()
     const resetState = useCallback((): void => {
         letters.setStatusFalse()

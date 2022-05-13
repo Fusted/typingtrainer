@@ -4,7 +4,7 @@ import DataCard from "../DataCard/DataCard";
 import letters from "../../../store/letters"
 import styles from "../cards.module.scss"
 import TimerCard from "../TimerCard/TimerCard"
-
+// Todo: сделать функцией и вниз компонента
 const getCorrectLetters = (inputtedText: string, templateText: string) => {
     let letters = 0
     inputtedText.split("").forEach((letter, index) => {
@@ -14,7 +14,7 @@ const getCorrectLetters = (inputtedText: string, templateText: string) => {
     })
     return letters
 }
-
+// Todo: сделать функцией и вниз компонента
 const getAccuracy = (total: number, incorrect: number) => {
     if (!total && incorrect) {
         return 100
@@ -22,7 +22,7 @@ const getAccuracy = (total: number, incorrect: number) => {
     const accuracy = 100 - Math.ceil((incorrect / total) * 100)
     return accuracy > 0 ? accuracy : 0
 }
-
+// Todo: сделать функцией и вниз компонента
 const getSpeed = (
     inputtedText: string,
     templateText: string,
@@ -34,6 +34,7 @@ const getSpeed = (
 }
 
 const StatsList: FC = () => {
+    // Todo: может вынести в hook это чуда юдо и работу со стейтом?
     const [time, setTime] = useState<number>(letters.time)
     const [speed, setSpeed] = useState(0)
     const [accuracy, setAccuracy] = useState(100)

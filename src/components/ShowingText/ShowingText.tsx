@@ -5,14 +5,13 @@ import styles from "../TypingArea/typingArea.module.scss"
 interface IShowingText {
     text: string
 }
+// TODO: вынести в function и вниз компонента
 const formatText = (text: string) => {
-    return text.split("").map((letter, index) => {
-        return (
-            <Fragment key={index}>
-                <Letter index={index} letter={letter} />
-            </Fragment>
-        )
-    })
+    return text.split("").map((letter, index) => (
+        <Fragment key={index}>
+            <Letter index={index} letter={letter} />
+        </Fragment>
+    ))
 }
 const ShowingText: FC<IShowingText> = ({ text }) => {
     const [textArray, setTextArray] = useState<JSX.Element[]>()

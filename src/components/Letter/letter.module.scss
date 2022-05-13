@@ -1,23 +1,33 @@
 @import "../../styles/variables.scss";
 
+$white: #fff;
+$grey: #808080;
+
 .done {
     color: $doneColor;
     opacity: 0.5;
 }
 
 .active {
-     box-shadow: -1px 0 #fff;
-    //position: relative;
-    //&::before {
-    //    content: "";
-    //    display: block;
-    //    position: absolute;
-    //    width: 3px;
-    //    height: 30px;
-    //    top: 0;
-    //    left: 0;
-    //    background: #333333;
-    //}
+    //background: #fff;
+    box-shadow: -1px 0 #fff;
+    opacity: 1 !important;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-name: cursorAnimation;
+}
+
+@keyframes cursorAnimation {
+    from {
+        box-shadow: -1px 0 $white;
+    }
+    50% {
+        box-shadow: -1px 0 $grey;
+    }
+    to {
+        box-shadow: -1px 0 $white;
+        opacity: 1;
+    }
 }
 
 .false {

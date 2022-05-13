@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+//Todo: оторвать если не юзаешь
 export function useInterval(time: number, delay: number) {
     // запомнить переданное время в секундах
     const [timeLeft, setTimeLeft] = useState(time)

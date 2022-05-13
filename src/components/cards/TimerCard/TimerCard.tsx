@@ -12,7 +12,7 @@ const TimerCard: FC<ITimerCard> = ({ time, setTime }) => {
     const [timerStatus, setTimerStatus] = useState<boolean>(false)
     const id = React.useRef<number | undefined>()
 
-
+    //Todo: вынести этот жир в функциональный файл и я думаю тут можно все как-то упроситить
     useEffect(() => {
         // timer run
         const isGetStarted = !timerStatus && letters.status && letters.editable

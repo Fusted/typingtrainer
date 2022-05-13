@@ -15,6 +15,9 @@ const LanguageButton = () => {
         language ? settings.setLanguage(language) : 'en'
     }, [])
 
+    
+
+    // Todo: вынести языки в массив и маппить их тут
     return (
         <select className={styles.button} value={settings.language} onChange={onChange}>
             <option value='ru'>RUS</option>
