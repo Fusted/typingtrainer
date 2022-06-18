@@ -6,6 +6,7 @@ import styles from "./TypingContainer.module.scss"
 import Service from "../../services/service"
 import settings from "../../store/settings"
 import letters from "../../store/letters"
+import {observer} from "mobx-react-lite";
 
 const TypingContainer = () => {
     const hiddenAreaRef = createRef<HTMLTextAreaElement>()
@@ -35,4 +36,4 @@ const TypingContainer = () => {
     )
 }
 // TODO: Убрать default export и сделать index файлы (есть бинд в idea)
-export default TypingContainer
+export default observer(TypingContainer)
