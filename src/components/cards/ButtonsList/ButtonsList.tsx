@@ -1,8 +1,8 @@
-import React, {FC} from "react"
+import React, { FC, useEffect, useState } from "react"
 import ResetButton from "../ResetButton/ResetButton"
 import LanguageButton from "../LanguageButton/LanguageButton"
 import styles from "../cards.module.scss"
-
+import { getLanguages } from "../../../services/service"
 
 interface ICardList {
     hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
@@ -10,6 +10,14 @@ interface ICardList {
 }
 
 const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
+    const [languages, setLanguages] = useState([""])
+
+    useEffect(() => {
+        const languages = getLanguages()
+        languages.then((languages) => {
+            setLanguages(languages)
+        })
+    }, [])
 
     return (
         <div className={styles.cardList}>
@@ -17,7 +25,7 @@ const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
                 hiddenAreaRef={hiddenAreaRef}
                 changeMainText={changeMainText}
             />
-            <LanguageButton />
+            <LanguageButton languages={languages} />
         </div>
     )
 }
