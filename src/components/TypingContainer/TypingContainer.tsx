@@ -3,7 +3,7 @@ import StatsList from "../cards/StatsList/StatsList"
 import TypingArea from "../TypingArea/TypingArea"
 import ButtonsList from "../cards/ButtonsList/ButtonsList"
 import styles from "./TypingContainer.module.scss"
-import {getText} from "../../services/service"
+import {getRandomWords} from "../../services/service"
 import settings from "../../store/settings"
 import letters from "../../store/letters"
 import {observer} from "mobx-react-lite";
@@ -13,7 +13,7 @@ const TypingContainer = () => {
 
     // TODO: Вынести api запрос в hook, а еще лучше сделать singleton
     const changeMainText = (): void => {
-        const text = getText(settings.language)
+        const text = getRandomWords(settings.language, 400)
         text.then((text) => {
             letters.setText(text)
             letters.setEnteredText("")
