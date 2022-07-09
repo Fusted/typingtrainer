@@ -1,37 +1,9 @@
-import React, {FC, useEffect, useState} from "react"
-import {observer} from "mobx-react-lite"
-import DataCard from "../DataCard/DataCard";
+import React, { FC, useEffect, useState } from "react"
+import { observer } from "mobx-react-lite"
+import DataCard from "../DataCard/DataCard"
 import letters from "../../../store/letters"
 import styles from "../cards.module.scss"
 import TimerCard from "../TimerCard/TimerCard"
-// Todo: сделать функцией и вниз компонента
-const getCorrectLetters = (inputtedText: string, templateText: string) => {
-    let letters = 0
-    inputtedText.split("").forEach((letter, index) => {
-        if (letter == templateText[index]) {
-            letters++
-        }
-    })
-    return letters
-}
-// Todo: сделать функцией и вниз компонента
-const getAccuracy = (total: number, incorrect: number) => {
-    if (!total && incorrect) {
-        return 100
-    }
-    const accuracy = 100 - Math.ceil((incorrect / total) * 100)
-    return accuracy > 0 ? accuracy : 0
-}
-// Todo: сделать функцией и вниз компонента
-const getSpeed = (
-    inputtedText: string,
-    templateText: string,
-    temp: number,
-    time: number
-): number => {
-    const correctLetters = getCorrectLetters(inputtedText, templateText)
-    return Math.round((correctLetters + temp) * (1 / ((61 - time) / 60)))
-}
 
 const StatsList: FC = () => {
     // Todo: может вынести в hook это чуда юдо и работу со стейтом?
@@ -57,7 +29,7 @@ const StatsList: FC = () => {
     }, [enteredText])
 
     useEffect(() => {
-        if (shouldReset){
+        if (shouldReset) {
             setTempLenght(0)
             setTempCorrect(0)
         }
@@ -73,4 +45,31 @@ const StatsList: FC = () => {
     )
 }
 
+function getCorrectLetters(inputtedText: string, templateText: string) {
+    let letters = 0
+    inputtedText.split("").forEach((letter, index) => {
+        if (letter == templateText[index]) {
+            letters++
+        }
+    })
+    return letters
+}
+
+function getAccuracy(total: number, incorrect: number) {
+    if (!total && incorrect) {
+        return 100
+    }
+    const accuracy = 100 - Math.ceil((incorrect / total) * 100)
+    return accuracy > 0 ? accuracy : 0
+}
+
+function getSpeed(
+    inputtedText: string,
+    templateText: string,
+    temp: number,
+    time: number
+): number {
+    const correctLetters = getCorrectLetters(inputtedText, templateText)
+    return Math.round((correctLetters + temp) * (1 / ((61 - time) / 60)))
+}
 export default observer(StatsList)
