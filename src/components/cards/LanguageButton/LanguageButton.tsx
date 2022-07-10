@@ -1,29 +1,35 @@
-import React, {ChangeEvent, useEffect } from 'react';
-import styles from '../cards.module.scss'
-import {observer} from "mobx-react-lite";
-import settings from "../../../store/settings";
+import React, {ChangeEvent, FC} from "react"
+import styles from "../cards.module.scss"
+import {observer} from "mobx-react-lite"
+import settings from "../../../store/settings"
 
-const LanguageButton = () => {
+interface ILanguageButton {
+    languages: string[]
+}
 
+const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
         settings.setLanguage(e.target.value)
-        localStorage.setItem('typing-lan', e.target.value)
+        localStorage.setItem("typing-lan", e.target.value)
     }
 
-    useEffect(() => {
-        const language = localStorage.getItem('typing-lan')
-        language ? settings.setLanguage(language) : 'en'
-    }, [])
+    const languageOptions = languages.map((language) => {
+        return (
+            <option key={language} value={language}>
+                {language.toUpperCase()}
+            </option>
+        )
+    })
 
-    
-
-    // Todo: вынести языки в массив и маппить их тут
     return (
-        <select className={styles.button} value={settings.language} onChange={onChange}>
-            <option value='ru'>RUS</option>
-            <option value='en'>EN</option>
+        <select
+            className={styles.button}
+            value={settings.language}
+            onChange={onChange}
+        >
+            {languageOptions}
         </select>
-    );
-};
+    )
+}
 
 export default observer(LanguageButton)

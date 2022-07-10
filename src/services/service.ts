@@ -1,16 +1,41 @@
 import txt from "./texts.json"
+import words from "./words.json"
 
-export default class Service {
-    static getText = async (language: string) => {
-    //TODO: Написать интерфейс для json или сделай уже норм api! И зачем тут await ?
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const textsArray = await txt.texts[language]
-        const text = textsArray[getRandomInt(textsArray.length)]
+const getLanguages = async () => {
+    const data = await txt.texts
+    return Object.keys(data)
+}
+
+const getText = async (language: string) => {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const textsArray = await txt.texts[language]
+    if (textsArray) {
+        const text = await textsArray[getRandomInt(textsArray.length)]
         return await text
+    } else {
+        return 'There is no texts'
     }
 }
 
-export function getRandomInt(max: number): number {
+const getRandomWords = async (language: string, lettersLimit: number) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const wordsData = await words.words[language]
+    let randomWords = ""
+    if (wordsData) {
+        while (randomWords.length <= lettersLimit) {
+            const newWord = wordsData[getRandomInt(wordsData.length)]
+            randomWords += newWord + " "
+        }
+    } else randomWords = 'There is no words'
+
+    return randomWords
+}
+
+function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max)
 }
+
+export { getText, getRandomInt, getLanguages, getRandomWords }
