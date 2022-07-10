@@ -6,7 +6,7 @@ const getLanguages = async () => {
     return Object.keys(data)
 }
 
-const getText = async (language: string) => {
+const getRandomText = async (language: string) => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -38,4 +38,4 @@ function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max)
 }
 
-export { getText, getRandomInt, getLanguages, getRandomWords }
+export { getRandomText, getRandomInt, getLanguages, getRandomWords }

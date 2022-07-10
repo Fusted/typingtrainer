@@ -1,4 +1,4 @@
-import React, { createRef, FC, useCallback, useEffect } from "react"
+import React, { createRef, FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import letters from "../../../store/letters"
 import style from "../cards.module.scss"
@@ -8,33 +8,8 @@ export interface IButton {
     changeMainText: () => void
 }
 
-const ResetButton: FC<IButton> = ({
-    hiddenAreaRef,
-    changeMainText
-}) => {
-    // Todo: Можно вынести из компонента и не юзать useCallBack
+const ResetButton: FC<IButton> = ({ hiddenAreaRef, changeMainText }) => {
     const resetRef = createRef<HTMLDivElement>()
-    const resetState = useCallback((): void => {
-        letters.setStatusFalse()
-        letters.setCurrentLetterId(0)
-        letters.setCurrentLetter(letters.text[0])
-        letters.resetMistakesCounter()
-    }, [letters.setEnteredText])
-
-    const onReset = useCallback((): void => {
-        letters.setShouldReset(true)
-        letters.setEditableTrue()
-        letters.resetMistakesCounter()
-        changeMainText()
-        hiddenAreaRef?.current?.focus()
-        resetState()
-    }, [changeMainText, hiddenAreaRef, resetState, letters.setEnteredText])
-
-    const onKeyReset = (e: KeyboardEvent) => {
-        if (e.code === 'Enter') {
-            resetRef.current?.click()
-        }
-    }
     useEffect(() => {
         hiddenAreaRef.current?.focus()
         document.addEventListener("keyup", onKeyReset)
@@ -42,6 +17,27 @@ const ResetButton: FC<IButton> = ({
             document.removeEventListener("keyup", onKeyReset)
         }
     }, [resetRef])
+    const resetState = (): void => {
+        letters.setStatusFalse()
+        letters.setCurrentLetterId(0)
+        letters.setCurrentLetter(letters.text[0])
+        letters.resetMistakesCounter()
+    }
+
+    const onReset = (): void => {
+        letters.setShouldReset(true)
+        letters.setEditableTrue()
+        letters.resetMistakesCounter()
+        changeMainText()
+        hiddenAreaRef?.current?.focus()
+        resetState()
+    }
+
+    const onKeyReset = (e: KeyboardEvent) => {
+        if (e.code === "Enter") {
+            onReset()
+        }
+    }
 
     return (
         <div

@@ -27,13 +27,10 @@ const Letter = ({
         if (isNotDefault) {
             if (isCorrect) {
                 setClassname = styles.done
-            } else if (isInCorrect) {
+            } else if (isInCorrect)
                 setClassname = styles.false
-            }
-
-            if (isCursor) {
+            if (isCursor)
                 setClassname = cn(setClassname, styles.active)
-            }
         }
 
         return setClassname;

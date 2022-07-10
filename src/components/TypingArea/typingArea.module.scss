@@ -34,6 +34,10 @@ $paddingSize: 28px;
     //opacity: 1;
 }
 
+.immutable {
+    border: 2px solid $falseColor;
+}
+
 .wrapper {
     position: relative;
     margin: 40px 0;

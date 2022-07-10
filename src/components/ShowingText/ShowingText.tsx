@@ -1,19 +1,16 @@
 import React, {Fragment, FC, useState, useEffect, memo} from "react"
+import cn from "classnames"
 import Letter from "../Letter/Letter"
 import styles from "../TypingArea/typingArea.module.scss"
 
+
 interface IShowingText {
-    text: string
+    text: string,
+    isImmutable: boolean
 }
-// TODO: вынести в function и вниз компонента
-const formatText = (text: string) => {
-    return text.split("").map((letter, index) => (
-        <Fragment key={index}>
-            <Letter index={index} letter={letter} />
-        </Fragment>
-    ))
-}
-const ShowingText: FC<IShowingText> = ({ text }) => {
+
+
+const ShowingText: FC<IShowingText> = ({ text, isImmutable }) => {
     const [textArray, setTextArray] = useState<JSX.Element[]>()
 
     useEffect(() => {
@@ -21,15 +18,18 @@ const ShowingText: FC<IShowingText> = ({ text }) => {
     }, [text])
 
     return (
-        <div className={styles.area}>
+        <div className={cn(styles.area, isImmutable ? styles.immutable : 'mutable')}>
             {textArray}
         </div>
     )
 }
 
-const compProps = (prev: Readonly<React.PropsWithChildren<IShowingText>>, next:  Readonly<React.PropsWithChildren<IShowingText>>) => {
-    return prev.text == next.text;
-
+function formatText(text: string){
+    return text.split("").map((letter, index) => (
+        <Fragment key={index}>
+            <Letter index={index} letter={letter} />
+        </Fragment>
+    ))
 }
 
-export default memo(ShowingText, compProps)
+export default memo(ShowingText)

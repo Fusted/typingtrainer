@@ -15,8 +15,8 @@ const TimerCard: FC<ITimerCard> = ({ time, setTime }) => {
     //Todo: вынести этот жир в функциональный файл и я думаю тут можно все как-то упроситить
     useEffect(() => {
         // timer run
-        const isGetStarted = !timerStatus && letters.status && letters.editable
-        if (isGetStarted) {
+        const isStarted = !timerStatus && letters.status && letters.editable
+        if (isStarted) {
             setTimerStatus(true)
             id.current = window.setInterval(() => {
                 setTime((time) => time - 1)
