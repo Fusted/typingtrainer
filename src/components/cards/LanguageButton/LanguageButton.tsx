@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useEffect} from "react"
+import React, {ChangeEvent, FC} from "react"
 import styles from "../cards.module.scss"
 import {observer} from "mobx-react-lite"
 import settings from "../../../store/settings"
@@ -13,10 +13,6 @@ const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
         localStorage.setItem("typing-lan", e.target.value)
     }
 
-    useEffect(() => {
-        const language = localStorage.getItem("typing-lan")
-        language ? settings.setLanguage(language) : "en"
-    }, [])
     const languageOptions = languages.map((language) => {
         return (
             <option key={language} value={language}>
