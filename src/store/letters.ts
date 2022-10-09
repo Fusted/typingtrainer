@@ -2,23 +2,14 @@ import { makeAutoObservable } from "mobx"
 
 class Letters {
     enteredText = ''
-
     currentLetterId = 0
-
     shouldReset = false
-
     currentLetter = ""
-
     mistakesCounter = 0
-
     focusStatus = false
-
     text = ""
-
     status = false
-
     time = 60
-
     editable = true
 
     constructor() {
