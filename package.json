@@ -23,14 +23,14 @@
     "react-contenteditable": "^3.3.6",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
-    "typed-scss-modules": "^6.2.0",
+    "typed-scss-modules": "7.0.1",
     "typescript-plugin-css-modules": "^3.4.0",
     "wait-on": "^6.0.1",
     "web-vitals": "^2.1.4"
   },
   "main": "public/electron.js",
   "scripts": {
-    "react-start": "react-scripts start",
+    "dev": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test --env=jsdom",
     "react-eject": "react-scripts eject",
