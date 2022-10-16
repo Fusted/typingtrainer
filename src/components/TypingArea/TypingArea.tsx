@@ -6,17 +6,10 @@ import letters from "store/letters"
 import ShowingText from "components/ShowingText/ShowingText"
 import InputArea from "components/InputArea/InputArea"
 
-interface ITypingArea {
-    changeMainText(): void
-}
-
-const TypingArea = (
-    { changeMainText }: ITypingArea,
-    ref: ForwardedRef<HTMLTextAreaElement>
-) => {
+const TypingArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     useEffect(() => {
         if (letters.enteredText.length === letters.text.length) {
-            changeMainText()
+            letters.resetText()
         }
     }, [letters.enteredText])
 

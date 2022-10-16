@@ -1,55 +1,34 @@
-import React, { createRef, FC, useCallback, useEffect } from "react"
-import { observer } from "mobx-react-lite"
-import letters from "../../../store/letters"
 import style from "../cards.module.scss"
 
-export interface IButton {
-    hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
-    changeMainText: () => void
+import React, { FC, useEffect } from "react"
+import { observer } from "mobx-react-lite"
+import letters from "store/letters"
+
+export interface Props {
+    focusArea: VoidFunction
 }
 
-const ResetButton: FC<IButton> = ({
-    hiddenAreaRef,
-    changeMainText
-}) => {
-    // Todo: Можно вынести из компонента и не юзать useCallBack
-    const resetRef = createRef<HTMLDivElement>()
-    const resetState = useCallback((): void => {
-        letters.setStatusFalse()
-        letters.setCurrentLetterId(0)
-        letters.setCurrentLetter(letters.text[0])
-        letters.resetMistakesCounter()
-    }, [letters.setEnteredText])
+const ResetButton: FC<Props> = ({ focusArea }) => {
+    const reset = (): void => {
+        letters.dispose()
+        focusArea()
+    }
 
-    const onReset = useCallback((): void => {
-        letters.setShouldReset(true)
-        letters.setEditableTrue()
-        letters.resetMistakesCounter()
-        changeMainText()
-        hiddenAreaRef?.current?.focus()
-        resetState()
-    }, [changeMainText, hiddenAreaRef, resetState, letters.setEnteredText])
-
-    const onKeyReset = (e: KeyboardEvent) => {
-        if (e.code === 'Enter') {
-            resetRef.current?.click()
+    const onKeyReset = (event: KeyboardEvent) => {
+        if (event.code === "Enter") {
+            reset()
         }
     }
     useEffect(() => {
-        hiddenAreaRef.current?.focus()
+        focusArea()
         document.addEventListener("keyup", onKeyReset)
         return function cleanup() {
             document.removeEventListener("keyup", onKeyReset)
         }
-    }, [resetRef])
+    }, [focusArea, onKeyReset])
 
     return (
-        <div
-            ref={resetRef}
-            className={style.button}
-            onClick={onReset}
-            tabIndex={1}
-        >
+        <div className={style.button} onClick={reset} tabIndex={1}>
             Reset
         </div>
     )

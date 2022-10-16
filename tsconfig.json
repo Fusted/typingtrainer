@@ -28,6 +28,6 @@
     "packages",
     "services",
     "store",
-    "views"
+    "views",
   ]
 }

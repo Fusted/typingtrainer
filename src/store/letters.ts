@@ -1,16 +1,18 @@
 import { makeAutoObservable } from "mobx"
+import settings from "./settings"
+import { getRandomWords, getText } from "../services/service"
 
 class Letters {
-    enteredText = ''
-    currentLetterId = 0
-    shouldReset = false
-    currentLetter = ""
-    mistakesCounter = 0
-    focusStatus = false
+    enteredText = ""
     text = ""
-    status = false
-    time = 60
-    editable = true
+    currentLetter = ""
+    currentLetterId = 0
+    mistakesCounter = 0
+    time = settings.timeLimit
+    isFocused = false
+    isTyping = false
+    isEditable = true
+    shouldReset = false
 
     constructor() {
         makeAutoObservable(this)
@@ -20,16 +22,12 @@ class Letters {
         this.enteredText = newText
     }
 
-    setStatusTrue() {
-        this.status = true
+    setTyping(isTyping: boolean) {
+        this.isTyping = isTyping
     }
 
-    setFocusStatus(status: boolean) {
-        this.focusStatus = status
-    }
-
-    setStatusFalse() {
-        this.status = false
+    setFocus(isFocused: boolean) {
+        this.isFocused = isFocused
     }
 
     setText(newText: string) {
@@ -52,23 +50,43 @@ class Letters {
         this.mistakesCounter = 0
     }
 
-    setEditableTrue() {
-        this.editable = true
-    }
-
-    setEditableFalse() {
-        this.editable = false
-    }
-
-    setTime(time: number) {
-        this.time = time
+    setEditable(isEditable: boolean) {
+        this.isEditable = isEditable
     }
 
     setShouldReset(value: boolean) {
         this.shouldReset = value
     }
 
-}
+    resetText(): void {
+        if (settings.mode == "words") {
+            const text = getRandomWords(
+                settings.language,
+                settings.lettersLimit
+            )
+            text.then((text) => {
+                this.setText(text)
+                this.setEnteredText("")
+            })
+        } else if (settings.mode == "texts") {
+            const text = getText(settings.language)
+            text.then((text) => {
+                this.setText(text)
+                this.setEnteredText("")
+            })
+        }
+    }
 
+    dispose(): void {
+        this.setShouldReset(true)
+        this.setEditable(true)
+        this.setTyping(false)
+        this.setCurrentLetterId(0)
+        this.setCurrentLetter("")
+        this.resetMistakesCounter()
+        this.resetText()
+        this.resetMistakesCounter()
+    }
+}
 
 export default new Letters()

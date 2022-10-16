@@ -27,13 +27,10 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
                 letters.incrementMistakesCounter()
             }
 
-            if (!enteredText.length && !letters.status) {
-                letters.setStatusFalse()
+            if (!letters.isTyping) {
+                letters.setTyping(Boolean(letters.enteredText.length))
             }
-
-            if (enteredText.length && !letters.status) {
-                letters.setStatusTrue()
-            }
+            // TODO: какое то говно
             if (!enteredText.includes("\n")) {
                 letters.setEnteredText(enteredText)
             }
@@ -44,16 +41,16 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     )
 
     const onFocus = useCallback((): void => {
-        letters.setFocusStatus(true)
+        letters.setFocus(true)
     }, [])
 
     const onBlur = (): void => {
-        letters.setFocusStatus(false)
+        letters.setFocus(false)
     }
 
-    const onSelect = (e: SyntheticEvent<HTMLTextAreaElement, Event>) => {
-        if (e.target instanceof HTMLTextAreaElement) {
-            letters.setCurrentLetterId(e.target.selectionStart ?? 0)
+    const onSelect = (event: SyntheticEvent<HTMLTextAreaElement, Event>) => {
+        if (event.target instanceof HTMLTextAreaElement) {
+            letters.setCurrentLetterId(event.target.selectionStart ?? 0)
         }
     }
 
@@ -64,7 +61,7 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
             className={cn(styles.area, styles.input)}
             onSelect={onSelect}
             onChange={onChange}
-            disabled={!letters.editable}
+            disabled={!letters.isEditable}
             ref={ref}
             value={letters.enteredText}
         />
