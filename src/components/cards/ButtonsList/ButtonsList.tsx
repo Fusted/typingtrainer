@@ -6,12 +6,11 @@ import ResetButton from "../ResetButton/ResetButton"
 import LanguageButton from "../LanguageButton/LanguageButton"
 import ModesButton from "../ModesButton/ModesButton"
 
-interface ICardList {
-    hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
-    changeMainText: () => void
+interface Props {
+    focusArea: VoidFunction
 }
 
-const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
+const ButtonsList: FC<Props> = ({ focusArea }) => {
     const [languages, setLanguages] = useState([""])
 
     useEffect(() => {
@@ -23,10 +22,7 @@ const ButtonsList: FC<ICardList> = ({ hiddenAreaRef, changeMainText }) => {
 
     return (
         <div className={styles.cardList}>
-            <ResetButton
-                hiddenAreaRef={hiddenAreaRef}
-                changeMainText={changeMainText}
-            />
+            <ResetButton focusArea={focusArea} />
             <LanguageButton languages={languages} />
             <ModesButton></ModesButton>
         </div>

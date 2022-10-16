@@ -9,7 +9,6 @@ $grey: #808080;
 }
 
 .active {
-    //background: #fff;
     box-shadow: -1px 0 #fff;
     opacity: 1 !important;
     animation-duration: 2s;
@@ -33,7 +32,6 @@ $grey: #808080;
 .false {
     opacity: 1;
     color: $falseColor;
-    //border-bottom: 2px solid palevioletred;
 }
 
 .default {

@@ -1,9 +1,10 @@
 import { makeAutoObservable } from "mobx"
 
 class Settings {
-
-    language = 'en'
-    mode = 'words'
+    language = "en"
+    mode = "words"
+    lettersLimit = 400
+    timeLimit = 60
 
     constructor() {
         makeAutoObservable(this)
