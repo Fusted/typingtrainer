@@ -80,12 +80,11 @@ class Letters {
     dispose(): void {
         this.setShouldReset(true)
         this.setEditable(true)
+        this.setTyping(false)
+        this.setCurrentLetter("")
+        this.setCurrentLetterId(0)
         this.resetMistakesCounter()
         this.resetText()
-        this.setTyping(false)
-        this.setCurrentLetterId(0)
-        // какая то хуйня
-        this.setCurrentLetter(this.text[0])
         this.resetMistakesCounter()
     }
 }
