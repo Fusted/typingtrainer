@@ -1,7 +1,8 @@
-import React, {ChangeEvent, FC} from "react"
 import styles from "../cards.module.scss"
-import {observer} from "mobx-react-lite"
-import settings from "../../../store/settings"
+
+import React, { ChangeEvent, FC } from "react"
+import { observer } from "mobx-react-lite"
+import settings from "store/settings"
 
 interface ILanguageButton {
     languages: string[]

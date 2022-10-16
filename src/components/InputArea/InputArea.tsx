@@ -1,3 +1,5 @@
+import styles from "../TypingArea/typingArea.module.scss"
+
 import React, {
     ChangeEvent,
     ForwardedRef,
@@ -8,8 +10,7 @@ import React, {
 } from "react"
 import { observer } from "mobx-react-lite"
 import cn from "classnames"
-import letters from "../../store/letters"
-import styles from "../TypingArea/typingArea.module.scss"
+import letters from "store/letters"
 
 const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     const [prevTextLength, setPrevTextLength] = useState(0)

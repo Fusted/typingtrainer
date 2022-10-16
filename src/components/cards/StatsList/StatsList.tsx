@@ -1,8 +1,9 @@
+import styles from "../cards.module.scss"
+
 import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import DataCard from "../DataCard/DataCard"
-import letters from "../../../store/letters"
-import styles from "../cards.module.scss"
+import letters from "store/letters"
 import TimerCard from "../TimerCard/TimerCard"
 
 const StatsList: FC = () => {
