@@ -1,11 +1,11 @@
-import React, {useEffect} from "react"
-import './app.scss'
-import TypingContainer from "./components/TypingContainer/TypingContainer";
-import {observer} from "mobx-react-lite";
-import settings from "./store/settings";
+import "./app.scss"
+
+import React, { useEffect } from "react"
+import { observer } from "mobx-react-lite"
+import TypingContainer from "components/TypingContainer/TypingContainer"
+import settings from "store/settings"
 
 function App() {
-
     useEffect(() => {
         const language = localStorage.getItem("typing-lan")
         const mode = localStorage.getItem("typing-mode")

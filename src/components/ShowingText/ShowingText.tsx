@@ -1,6 +1,7 @@
-import React, {Fragment, FC, useState, useEffect, memo} from "react"
-import Letter from "../Letter/Letter"
 import styles from "../TypingArea/typingArea.module.scss"
+
+import React, { Fragment, FC, useState, useEffect, memo } from "react"
+import Letter from "components/Letter/Letter"
 
 interface IShowingText {
     text: string
@@ -20,16 +21,14 @@ const ShowingText: FC<IShowingText> = ({ text }) => {
         setTextArray(formatText(text))
     }, [text])
 
-    return (
-        <div className={styles.area}>
-            {textArray}
-        </div>
-    )
+    return <div className={styles.area}>{textArray}</div>
 }
 
-const compProps = (prev: Readonly<React.PropsWithChildren<IShowingText>>, next:  Readonly<React.PropsWithChildren<IShowingText>>) => {
-    return prev.text == next.text;
-
+const compProps = (
+    prev: Readonly<React.PropsWithChildren<IShowingText>>,
+    next: Readonly<React.PropsWithChildren<IShowingText>>
+) => {
+    return prev.text == next.text
 }
 
 export default memo(ShowingText, compProps)

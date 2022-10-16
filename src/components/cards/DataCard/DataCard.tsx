@@ -1,5 +1,6 @@
-import React, { FC } from "react"
 import styles from "../cards.module.scss"
+
+import React, { FC } from "react"
 
 interface ICard {
     text: string
@@ -7,7 +8,6 @@ interface ICard {
 }
 
 const DataCard: FC<ICard> = ({ text, value }) => {
-
     return (
         <div className={styles.card}>
             {text}: {value}

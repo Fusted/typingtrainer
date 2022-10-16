@@ -1,8 +1,8 @@
-import React, {ChangeEvent} from "react"
 import styles from "../cards.module.scss"
-import {observer} from "mobx-react-lite"
-import settings from "../../../store/settings"
 
+import React, { ChangeEvent } from "react"
+import { observer } from "mobx-react-lite"
+import settings from "store/settings"
 
 const ModesButton = () => {
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {

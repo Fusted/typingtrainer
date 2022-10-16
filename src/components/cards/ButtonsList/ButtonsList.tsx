@@ -1,9 +1,10 @@
+import styles from "../cards.module.scss"
+
 import React, { FC, useEffect, useState } from "react"
+import { getLanguages } from "services/service"
 import ResetButton from "../ResetButton/ResetButton"
 import LanguageButton from "../LanguageButton/LanguageButton"
-import ModesButton from "../ModesButton/ModesButton";
-import styles from "../cards.module.scss"
-import { getLanguages } from "../../../services/service"
+import ModesButton from "../ModesButton/ModesButton"
 
 interface ICardList {
     hiddenAreaRef: React.RefObject<HTMLTextAreaElement>
