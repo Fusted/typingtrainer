@@ -3,7 +3,7 @@ import styles from "../TypingArea/typingArea.module.scss"
 import React, { Fragment, FC, useState, useEffect, memo } from "react"
 import Letter from "components/Letter/Letter"
 
-interface IShowingText {
+interface Props {
     text: string
 }
 // TODO: вынести в function и вниз компонента
@@ -14,7 +14,7 @@ const formatText = (text: string) => {
         </Fragment>
     ))
 }
-const ShowingText: FC<IShowingText> = ({ text }) => {
+const ShowingText: FC<Props> = ({ text }) => {
     const [textArray, setTextArray] = useState<JSX.Element[]>()
 
     useEffect(() => {
@@ -24,11 +24,11 @@ const ShowingText: FC<IShowingText> = ({ text }) => {
     return <div className={styles.area}>{textArray}</div>
 }
 
-const compProps = (
-    prev: Readonly<React.PropsWithChildren<IShowingText>>,
-    next: Readonly<React.PropsWithChildren<IShowingText>>
+const compareProps = (
+    prev: Readonly<React.PropsWithChildren<Props>>,
+    next: Readonly<React.PropsWithChildren<Props>>
 ) => {
     return prev.text == next.text
 }
 
-export default memo(ShowingText, compProps)
+export default memo(ShowingText, compareProps)

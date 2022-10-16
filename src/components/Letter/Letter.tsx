@@ -11,14 +11,14 @@ interface ILetter {
 }
 
 const Letter = ({ letter, index }: ILetter) => {
-    // Todo: мейби создать ts файл для функциональщины и туда вынести эту всю логику ?
+    // TODO: мейби создать ts файл для функциональщины и туда вынести эту всю логику ?
     const expectedLetter = letters.text[index]
     const isStart = !letters.currentLetterId && letters.enteredText.length
     const isNotDefault = index <= letters.enteredText.length
     const isCorrect = expectedLetter == letters.enteredText[index]
     const isInCorrect = index < letters.enteredText.length
     const isCursor =
-        index === letters.currentLetterId && !isStart && letters.focusStatus
+        index === letters.currentLetterId && !isStart && letters.isFocused
 
     const className: string = useMemo(() => {
         let setClassname = styles.default
