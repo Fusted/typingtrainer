@@ -24,7 +24,7 @@ const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
 
     return (
         <select
-            className={styles.button}
+            className={styles.select}
             value={settings.language}
             onChange={onChange}
         >

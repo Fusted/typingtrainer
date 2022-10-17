@@ -12,7 +12,7 @@ const ModesButton = () => {
 
     return (
         <select
-            className={styles.button}
+            className={styles.select}
             value={settings.mode}
             onChange={onChange}
         >

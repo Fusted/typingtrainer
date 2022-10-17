@@ -1,8 +1,7 @@
-import style from "../cards.module.scss"
-
 import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import letters from "store/letters"
+import Button from "packages/Button"
 
 export interface Props {
     focusArea: VoidFunction
@@ -27,11 +26,7 @@ const ResetButton: FC<Props> = ({ focusArea }) => {
         }
     }, [focusArea, onKeyReset])
 
-    return (
-        <div className={style.button} onClick={reset} tabIndex={1}>
-            Reset
-        </div>
-    )
+    return <Button text={"Reset"} onClick={reset} />
 }
 
 export default observer(ResetButton)
