@@ -17,7 +17,7 @@ const TypingContainer = () => {
 
     useEffect(() => {
         letters.resetText()
-    }, [settings.language, settings.mode])
+    }, [settings.language])
 
     return (
         <div className={styles.container}>
