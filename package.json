@@ -35,8 +35,8 @@
     "react-test": "react-scripts test --env=jsdom",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
-    "release": "yarn react-build && electron-builder --publish=always",
-    "build": "yarn react-build && yarn electron-build",
+    "release": "npm run react-build && electron-builder --publish=always",
+    "build": "npm run react-build && yarn electron-build",
     "start": "react-scripts start",
     "start-all": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
