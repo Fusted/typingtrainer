@@ -24,7 +24,7 @@ const ButtonsList: FC<Props> = ({ focusArea }) => {
         <div className={styles.cardList}>
             <ResetButton focusArea={focusArea} />
             <LanguageButton languages={languages} />
-            <ModesButton></ModesButton>
+            <ModesButton />
         </div>
     )
 }
