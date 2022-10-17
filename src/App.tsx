@@ -8,10 +8,8 @@ import settings from "store/settings"
 function App() {
     useEffect(() => {
         const language = localStorage.getItem("typing-lan")
-        const mode = localStorage.getItem("typing-mode")
 
         language ? settings.setLanguage(language) : "en"
-        mode ? settings.setMode(mode) : "words"
     }, [])
 
     return (

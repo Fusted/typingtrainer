@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import settings from "./settings"
-import { getRandomWords, getText } from "../services/service"
+import { getRandomWords } from "../services/service"
 
 class Letters {
     enteredText = ""
@@ -59,22 +59,11 @@ class Letters {
     }
 
     resetText(): void {
-        if (settings.mode == "words") {
-            const text = getRandomWords(
-                settings.language,
-                settings.lettersLimit
-            )
-            text.then((text) => {
-                this.setText(text)
-                this.setEnteredText("")
-            })
-        } else if (settings.mode == "texts") {
-            const text = getText(settings.language)
-            text.then((text) => {
-                this.setText(text)
-                this.setEnteredText("")
-            })
-        }
+        const text = getRandomWords(settings.language, settings.lettersLimit)
+        text.then((text) => {
+            this.setText(text)
+            this.setEnteredText("")
+        })
     }
 
     dispose(): void {
