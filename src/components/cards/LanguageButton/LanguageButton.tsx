@@ -2,15 +2,22 @@ import styles from "../cards.module.scss"
 
 import React, { ChangeEvent, FC } from "react"
 import { observer } from "mobx-react-lite"
-import settings from "store/settings"
+import { languageAtom, setLanguageAction } from "atoms/config"
+import { useAction, useAtom } from "@reatom/npm-react"
+import { disposeAction } from "atoms/dispose"
 
 interface ILanguageButton {
     languages: string[]
 }
 
 const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
+    const [language] = useAtom(languageAtom)
+    const setLanguage = useAction(setLanguageAction)
+    const dispose = useAction(disposeAction)
+
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        settings.setLanguage(e.target.value)
+        setLanguage(e.target.value)
+        dispose()
         localStorage.setItem("typing-lan", e.target.value)
     }
 
@@ -23,11 +30,7 @@ const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
     })
 
     return (
-        <select
-            className={styles.select}
-            value={settings.language}
-            onChange={onChange}
-        >
+        <select className={styles.select} value={language} onChange={onChange}>
             {languageOptions}
         </select>
     )

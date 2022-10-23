@@ -1,34 +1,28 @@
 import styles from "../TypingArea/typingArea.module.scss"
 
-import React, { Fragment, FC, useState, useEffect, memo } from "react"
+import React, { FC, memo, PropsWithChildren } from "react"
 import Letter from "components/Letter/Letter"
 
 interface Props {
-    text: string
+    visibleText: string
 }
-// TODO: вынести в function и вниз компонента
-const formatText = (text: string) => {
-    return text.split("").map((letter, index) => (
-        <Fragment key={index}>
-            <Letter index={index} letter={letter} />
-        </Fragment>
-    ))
-}
-const ShowingText: FC<Props> = ({ text }) => {
-    const [textArray, setTextArray] = useState<JSX.Element[]>()
 
-    useEffect(() => {
-        setTextArray(formatText(text))
-    }, [text])
-
-    return <div className={styles.area}>{textArray}</div>
+const ShowingText: FC<Props> = ({ visibleText }) => {
+    return <div className={styles.area}>{formatText(visibleText)}</div>
 }
 
 const compareProps = (
-    prev: Readonly<React.PropsWithChildren<Props>>,
-    next: Readonly<React.PropsWithChildren<Props>>
+    prev: Readonly<PropsWithChildren<Props>>,
+    next: Readonly<PropsWithChildren<Props>>
 ) => {
-    return prev.text == next.text
+    return prev.visibleText === next.visibleText
+}
+function formatText(text: string) {
+    return text
+        .split("")
+        .map((letter, index) => (
+            <Letter letter={letter} index={index} key={index + letter} />
+        ))
 }
 
 export default memo(ShowingText, compareProps)

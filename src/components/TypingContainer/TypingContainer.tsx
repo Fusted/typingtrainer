@@ -5,19 +5,31 @@ import { observer } from "mobx-react-lite"
 import StatsList from "components/cards/StatsList/StatsList"
 import TypingArea from "components/TypingArea/TypingArea"
 import ButtonsList from "components/cards/ButtonsList/ButtonsList"
-import settings from "store/settings"
-import letters from "store/letters"
+import { useAction } from "@reatom/npm-react"
+import { resetEneteredTextAction } from "../../atoms/enteredTextAtom"
+import { setVisibleTextAction } from "../../atoms/visibleText"
+import { setLanguageAction } from "atoms/config"
 
 const TypingContainer = () => {
+    const reset = useAction(resetEneteredTextAction)
+    const set = useAction(setVisibleTextAction)
     const hiddenAreaRef = createRef<HTMLTextAreaElement>()
+
+    const setLanguage = useAction(setLanguageAction)
+    useEffect(() => {
+        const language = localStorage.getItem("typing-lan")
+        language ? setLanguage(language) : "en"
+    }, [setLanguage])
 
     const focusArea = useCallback(() => {
         hiddenAreaRef?.current?.focus()
     }, [hiddenAreaRef])
 
+    // TODO: какое то говно
     useEffect(() => {
-        letters.resetText()
-    }, [settings.language])
+        set()
+        reset()
+    }, [set, reset])
 
     return (
         <div className={styles.container}>

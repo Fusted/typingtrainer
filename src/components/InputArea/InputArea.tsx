@@ -5,65 +5,77 @@ import React, {
     ForwardedRef,
     forwardRef,
     SyntheticEvent,
-    useCallback,
     useState,
 } from "react"
 import { observer } from "mobx-react-lite"
 import cn from "classnames"
-import letters from "store/letters"
+import { useAction, useAtom } from "@reatom/npm-react"
+import { setEnteredTextAction, enteredTextAtom } from "atoms/enteredTextAtom"
+import { visibleTextAtom } from "atoms/visibleText"
+import {
+    incrementMistakesCounterAction,
+    isEditableAtom,
+    isTypingAtom,
+    setFocusedAction,
+    setTypingAction,
+    setCurrentLetterIdAction,
+} from "atoms/state"
 
 const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     const [prevTextLength, setPrevTextLength] = useState(0)
-    const onChange = useCallback(
-        (e: ChangeEvent<HTMLTextAreaElement>): void => {
-            const enteredText = e.target.value
-            const lastSymbolId = enteredText.length - 1
-            const isInCorrect =
-                enteredText[lastSymbolId] != letters.text[lastSymbolId] &&
-                enteredText.length > 0 &&
-                prevTextLength < letters.enteredText.length
-
-            if (isInCorrect) {
-                letters.incrementMistakesCounter()
-            }
-
-            if (!letters.isTyping) {
-                letters.setTyping(Boolean(letters.enteredText.length))
-            }
-            // TODO: какое то говно
-            if (!enteredText.includes("\n")) {
-                letters.setEnteredText(enteredText)
-            }
-
-            setPrevTextLength(letters.enteredText.length)
-        },
-        []
-    )
-
-    const onFocus = useCallback((): void => {
-        letters.setFocus(true)
-    }, [])
-
-    const onBlur = (): void => {
-        letters.setFocus(false)
-    }
+    const setEnteredText = useAction(setEnteredTextAction)
+    const changeCurrentLetterId = useAction(setCurrentLetterIdAction)
+    const setFocused = useAction(setFocusedAction)
+    const incrementMistakesCounter = useAction(incrementMistakesCounterAction)
+    const setTyping = useAction(setTypingAction)
+    const [visibleText] = useAtom(visibleTextAtom)
+    const [isTyping] = useAtom(isTypingAtom)
+    const [isEditable] = useAtom(isEditableAtom)
 
     const onSelect = (event: SyntheticEvent<HTMLTextAreaElement, Event>) => {
         if (event.target instanceof HTMLTextAreaElement) {
-            letters.setCurrentLetterId(event.target.selectionStart ?? 0)
+            changeCurrentLetterId(event.target.selectionStart ?? 0)
         }
     }
 
+    const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const enteredText = event.target.value
+        changeCurrentLetterId(enteredText.length)
+
+        // old logics
+        const lastSymbolId = enteredText.length - 1
+        const isInCorrect =
+            enteredText[lastSymbolId] != visibleText[lastSymbolId] &&
+            enteredText.length > 0 &&
+            prevTextLength < enteredText.length
+
+        if (isInCorrect) {
+            incrementMistakesCounter()
+        }
+
+        if (!isTyping) {
+            setTyping(!!enteredText.length)
+        }
+        // TODO: какое то говно
+        if (!enteredText.includes("\n")) {
+            setEnteredText(enteredText)
+        }
+
+        setPrevTextLength(enteredText.length)
+    }
+
+    const [value] = useAtom(enteredTextAtom)
+
     return (
         <textarea
-            onFocus={onFocus}
-            onBlur={onBlur}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
             className={cn(styles.area, styles.input)}
             onSelect={onSelect}
             onChange={onChange}
-            disabled={!letters.isEditable}
+            disabled={!isEditable}
             ref={ref}
-            value={letters.enteredText}
+            value={value}
         />
     )
 }

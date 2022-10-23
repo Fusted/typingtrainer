@@ -1,8 +1,15 @@
 import styles from "../cards.module.scss"
 
 import React, { useState, useEffect, FC, SetStateAction, Dispatch } from "react"
-import { observer } from "mobx-react-lite"
-import letters from "store/letters"
+import { timeLimitAtom } from "atoms/config"
+import { useAtom, useAction } from "@reatom/npm-react"
+import {
+    isEditableAtom,
+    isShouldResetAtom,
+    isTypingAtom,
+    setEditableAction,
+    setShouldResetAction,
+} from "atoms/state"
 
 interface Props {
     time: number
@@ -13,11 +20,17 @@ const TimerCard: FC<Props> = ({ time, setTime }) => {
     const [timerStatus, setTimerStatus] = useState<boolean>(false)
     const id = React.useRef<number | undefined>()
 
+    const [timeLimit] = useAtom(timeLimitAtom)
+    const [isShouldReset] = useAtom(isShouldResetAtom)
+    const [isTyping] = useAtom(isTypingAtom)
+    const [isEditable] = useAtom(isEditableAtom)
+    const setEditable = useAction(setEditableAction)
+    const setShouldReset = useAction(setShouldResetAction)
+
     //Todo: вынести этот жир в функциональный файл и я думаю тут можно все как-то упроситить
     useEffect(() => {
         // timer run
-        const isGetStarted =
-            !timerStatus && letters.isTyping && letters.isEditable
+        const isGetStarted = !timerStatus && isTyping && isEditable
 
         if (isGetStarted) {
             setTimerStatus(true)
@@ -27,20 +40,31 @@ const TimerCard: FC<Props> = ({ time, setTime }) => {
         }
         //timer stop
         if (time === 0 && timerStatus) {
-            letters.setEditable(false)
+            setEditable(false)
             window.clearInterval(id.current)
             setTimerStatus(false)
         }
         // reset timer
-        if (letters.shouldReset) {
-            setTime(letters.time)
+        if (isShouldReset) {
+            setTime(timeLimit)
             window.clearInterval(id.current)
             setTimerStatus(false)
-            letters.setShouldReset(false)
+            setShouldReset(false)
         }
-    }, [time, timerStatus, letters.enteredText, setTime])
+        // тут была зависсимость от ввденного текста
+    }, [
+        time,
+        timerStatus,
+        setTime,
+        isTyping,
+        isEditable,
+        isShouldReset,
+        setEditable,
+        timeLimit,
+        setShouldReset,
+    ])
 
     return <div className={styles.card}>Time left: {time}</div>
 }
 
-export default observer(TimerCard)
+export default TimerCard

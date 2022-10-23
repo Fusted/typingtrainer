@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
-import letters from "store/letters"
 import Button from "packages/Button"
+import { disposeAction } from "atoms/dispose"
+import { useAction } from "@reatom/npm-react"
 
 export interface Props {
     focusArea: VoidFunction
 }
 
 const ResetButton: FC<Props> = ({ focusArea }) => {
+    const dispose = useAction(disposeAction)
+
     const reset = (): void => {
-        letters.dispose()
+        dispose()
         focusArea()
     }
 
@@ -18,6 +22,7 @@ const ResetButton: FC<Props> = ({ focusArea }) => {
             reset()
         }
     }
+
     useEffect(() => {
         focusArea()
         document.addEventListener("keyup", onKeyReset)

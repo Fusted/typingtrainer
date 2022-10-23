@@ -27,7 +27,7 @@
     "components",
     "packages",
     "services",
-    "store",
+    "atoms",
     "views",
   ]
 }

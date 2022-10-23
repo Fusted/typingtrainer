@@ -3,18 +3,29 @@
 $white: #fff;
 $grey: #808080;
 
-.done {
-    color: $doneColor;
-    opacity: 0.5;
-}
-
 .active {
+    box-sizing: border-box;
     box-shadow: -1px 0 #fff;
     opacity: 1 !important;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-name: cursorAnimation;
 }
+
+.done {
+    color: $doneColor;
+    opacity: 0.5;
+}
+
+.false {
+    opacity: 0.5;
+    color: $falseColor;
+}
+
+.default {
+    text-decoration: none;
+}
+
 
 @keyframes cursorAnimation {
     from {
@@ -27,13 +38,4 @@ $grey: #808080;
         box-shadow: -1px 0 $white;
         opacity: 1;
     }
-}
-
-.false {
-    opacity: 1;
-    color: $falseColor;
-}
-
-.default {
-    text-decoration: none;
 }
