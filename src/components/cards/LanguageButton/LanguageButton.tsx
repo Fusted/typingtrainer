@@ -1,7 +1,6 @@
 import styles from "../cards.module.scss"
 
 import React, { ChangeEvent, FC } from "react"
-import { observer } from "mobx-react-lite"
 import { languageAtom, setLanguageAction } from "atoms/config"
 import { useAction, useAtom } from "@reatom/npm-react"
 import { disposeAction } from "atoms/dispose"
@@ -36,4 +35,4 @@ const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
     )
 }
 
-export default observer(LanguageButton)
+export default LanguageButton

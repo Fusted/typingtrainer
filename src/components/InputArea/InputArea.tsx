@@ -7,7 +7,6 @@ import React, {
     SyntheticEvent,
     useState,
 } from "react"
-import { observer } from "mobx-react-lite"
 import cn from "classnames"
 import { useAction, useAtom } from "@reatom/npm-react"
 import { setEnteredTextAction, enteredTextAtom } from "atoms/enteredTextAtom"
@@ -80,4 +79,4 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     )
 }
 
-export default observer(forwardRef(InputArea))
+export default forwardRef(InputArea)

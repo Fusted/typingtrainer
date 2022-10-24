@@ -1,7 +1,6 @@
 import styles from "../cards.module.scss"
 
 import React, { FC, useEffect, useState } from "react"
-import { observer } from "mobx-react-lite"
 import DataCard from "../DataCard/DataCard"
 import TimerCard from "../TimerCard/TimerCard"
 import { timeLimitAtom } from "atoms/config"
@@ -11,14 +10,14 @@ import { isShouldResetAtom, mistakesCounterAtom } from "atoms/state"
 import { visibleTextAtom } from "atoms/visibleText"
 
 const StatsList: FC = () => {
-    // TODO: вынести логику в атомы
+    
     const [timeLimit] = useAtom(timeLimitAtom)
     const [enteredText] = useAtom(enteredTextAtom)
     const [visibleText] = useAtom(visibleTextAtom)
     const [shouldReset] = useAtom(isShouldResetAtom)
     const [mistakesCounter] = useAtom(mistakesCounterAtom)
 
-    const [time, setTime] = useState<number>(timeLimit)
+    const [time, setTime] = useState(timeLimit)
     const [speed, setSpeed] = useState(0)
     const [accuracy, setAccuracy] = useState(100)
     const [tempLength, setTempLenght] = useState(0)
@@ -81,12 +80,12 @@ function getAccuracy(total: number, incorrect: number) {
 }
 
 function getSpeed(
-    inputtedText: string,
+    inputText: string,
     templateText: string,
     temp: number,
     time: number
 ): number {
-    const correctLetters = getCorrectLetters(inputtedText, templateText)
+    const correctLetters = getCorrectLetters(inputText, templateText)
     return Math.round((correctLetters + temp) * (1 / ((61 - time) / 60)))
 }
-export default observer(StatsList)
+export default StatsList

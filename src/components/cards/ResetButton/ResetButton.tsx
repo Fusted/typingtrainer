@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from "react"
-import { observer } from "mobx-react-lite"
 import Button from "packages/Button"
 import { disposeAction } from "atoms/dispose"
 import { useAction } from "@reatom/npm-react"
@@ -34,4 +33,4 @@ const ResetButton: FC<Props> = ({ focusArea }) => {
     return <Button text={"Reset"} onClick={reset} />
 }
 
-export default observer(ResetButton)
+export default ResetButton

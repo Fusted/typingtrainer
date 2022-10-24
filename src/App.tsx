@@ -1,10 +1,9 @@
 import "./app.scss"
 
 import React from "react"
-import { observer } from "mobx-react-lite"
-import TypingContainer from "components/TypingContainer/TypingContainer"
 import { createCtx } from "@reatom/core"
 import { reatomContext} from "@reatom/npm-react"
+import TypingContainer from "components/TypingContainer/TypingContainer"
 
 const ctx = createCtx()
 
@@ -18,5 +17,5 @@ function App() {
     )
 }
 
-export default observer(App)
+export default App
 
