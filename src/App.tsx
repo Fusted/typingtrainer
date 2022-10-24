@@ -1,22 +1,21 @@
 import "./app.scss"
 
-import React, { useEffect } from "react"
-import { observer } from "mobx-react-lite"
+import React from "react"
+import { createCtx } from "@reatom/core"
+import { reatomContext} from "@reatom/npm-react"
 import TypingContainer from "components/TypingContainer/TypingContainer"
-import settings from "store/settings"
+
+const ctx = createCtx()
 
 function App() {
-    useEffect(() => {
-        const language = localStorage.getItem("typing-lan")
-
-        language ? settings.setLanguage(language) : "en"
-    }, [])
-
     return (
         <div className="app">
-            <TypingContainer />
+            <reatomContext.Provider value={ctx}>
+                <TypingContainer />
+            </reatomContext.Provider>
         </div>
     )
 }
 
-export default observer(App)
+export default App
+

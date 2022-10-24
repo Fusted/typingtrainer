@@ -26,11 +26,15 @@
     left: 50%;
     transform: translateX(-50%);
     background: none;
-    height: auto;
+    height: 100%;
     opacity: 0;
 }
 
 .wrapper {
     position: relative;
     margin: 40px 0;
+}
+
+.immutable {
+    border: 2px solid $falseColor;
 }

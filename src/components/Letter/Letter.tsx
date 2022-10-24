@@ -1,44 +1,52 @@
 import styles from "./letter.module.scss"
 
-import React, { useMemo } from "react"
+import React from "react"
+import { useAtom } from "@reatom/npm-react"
 import cn from "classnames"
-import { observer } from "mobx-react-lite"
-import letters from "store/letters"
+import { isfocusedAtom, currentLetterIdAtom } from "atoms/state"
+import { enteredTextAtom } from "atoms/enteredTextAtom"
 
 interface ILetter {
-    letter: string
     index: number
+    letter: string
 }
 
 const Letter = ({ letter, index }: ILetter) => {
-    // TODO: мейби создать ts файл для функциональщины и туда вынести эту всю логику ?
-    const expectedLetter = letters.text[index]
-    const isStart = !letters.currentLetterId && letters.enteredText.length
-    const isNotDefault = index <= letters.enteredText.length
-    const isCorrect = expectedLetter == letters.enteredText[index]
-    const isInCorrect = index < letters.enteredText.length
-    const isCursor =
-        index === letters.currentLetterId && !isStart && letters.isFocused
+    const [className] = useAtom((ctx) => {
+        const currentLetterId = ctx.spy(currentLetterIdAtom)
+        const enteredText = ctx.spy(enteredTextAtom)
+        const isFocused = ctx.spy(isfocusedAtom)
+        const isStart = !currentLetterId && enteredText.length
 
-    const className: string = useMemo(() => {
-        let setClassname = styles.default
-        // Todo: Вынести в файл функционала и использовать модуль classname, чтобы получилось cn(isTest && test, isTest2 && test2)
-        if (isNotDefault) {
-            if (isCorrect) {
-                setClassname = styles.done
-            } else if (isInCorrect) {
-                setClassname = styles.false
-            }
+        const isCorrect = enteredText[index] === letter
+        const isInCorrect = index < enteredText.length
+        const isDefault = index > enteredText.length
+        const isCursor = index === currentLetterId && !isStart && isFocused
 
-            if (isCursor) {
-                setClassname = cn(setClassname, styles.active)
-            }
-        }
-
-        return setClassname
-    }, [isCursor, isInCorrect, isCorrect, isNotDefault])
-
+        return getClassName(isCursor, isCorrect, isDefault, isInCorrect)
+    })
     return <span className={className}>{letter}</span>
 }
 
-export default observer(Letter)
+const getClassName = (
+    isCursor: boolean,
+    isCorrect: boolean,
+    isDefault: boolean,
+    isIncorrect: boolean
+): string => {
+    if (isDefault) {
+        return ""
+    }
+
+    let className = styles.default
+
+    if (isCorrect) {
+        className = styles.done
+    } else if (isIncorrect) {
+        className = styles.false
+    }
+
+    return isCursor ? cn(className, styles.active) : className
+}
+
+export default Letter

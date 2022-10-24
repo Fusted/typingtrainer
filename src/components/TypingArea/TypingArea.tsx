@@ -1,24 +1,44 @@
 import styles from "./typingArea.module.scss"
 
 import React, { ForwardedRef, forwardRef, useEffect } from "react"
-import { observer } from "mobx-react-lite"
-import letters from "store/letters"
+import cn from "classnames"
 import ShowingText from "components/ShowingText/ShowingText"
 import InputArea from "components/InputArea/InputArea"
+import { setVisibleTextAction, visibleTextAtom } from "../../atoms/visibleText"
+import { useAction, useAtom } from "@reatom/npm-react"
+import { enteredTextAtom, resetEneteredTextAction } from "atoms/enteredTextAtom"
+import { isEditableAtom } from "atoms/state"
 
 const TypingArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
+    const resetEnteredText = useAction(resetEneteredTextAction)
+    const setVisisbleText = useAction(setVisibleTextAction)
+    const [enteredText] = useAtom(enteredTextAtom)
+    const [visibleText] = useAtom(visibleTextAtom)
+    const [isEditable] = useAtom(isEditableAtom)
+
     useEffect(() => {
-        if (letters.enteredText.length === letters.text.length) {
-            letters.resetText()
+        if (enteredText.length === visibleText.length) {
+            resetEnteredText()
+            setVisisbleText()
         }
-    }, [letters.enteredText])
+    }, [
+        enteredText.length,
+        visibleText.length,
+        setVisisbleText,
+        resetEnteredText,
+    ])
 
     return (
-        <div className={styles.wrapper}>
-            <ShowingText text={letters.text} />
+        <div
+            className={cn(
+                styles.wrapper,
+                isEditable ? undefined : styles.immutable
+            )}
+        >
+            <ShowingText visibleText={visibleText} />
             <InputArea ref={ref} />
         </div>
     )
 }
 
-export default observer(forwardRef(TypingArea))
+export default forwardRef(TypingArea)

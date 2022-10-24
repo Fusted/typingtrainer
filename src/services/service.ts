@@ -5,11 +5,11 @@ const getLanguages = async () => {
     return Object.values(languages)
 }
 
-const getRandomWords = async (language: string, lettersLimit: number) => {
-    // TODO: сдедать типизацию и сделать синхронным
+const getRandomWords = (language: string, lettersLimit: number): string => {
+    // TODO: сдедать типизацию
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const wordsData = await words[language]
+    const wordsData = words[language]
     let randomWords = ""
     if (wordsData) {
         while (randomWords.length <= lettersLimit) {
