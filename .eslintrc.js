@@ -21,9 +21,9 @@ module.exports = {
     },
     plugins: ["react", "@typescript-eslint", "unused-imports", "prettier"],
     rules: {
-        "@typescript-eslint/indent": ["error", 4],
-        "@typescript-eslint/no-unused-vars": "off",
-        "unused-imports/no-unused-imports": "error",
+        "@typescript-eslint/indent": ["warn", 4],
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-imports": "warn",
         "unused-imports/no-unused-vars": [
             "warn",
             {
