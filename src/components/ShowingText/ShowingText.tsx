@@ -1,6 +1,9 @@
 import styles from "../TypingArea/typingArea.module.scss"
 
 import React, { FC, memo, PropsWithChildren } from "react"
+import { useAtom } from "@reatom/npm-react"
+import cn from 'classnames'
+import { isEditableAtom } from "atoms/state"
 import Letter from "components/Letter/Letter"
 
 interface Props {
@@ -8,7 +11,18 @@ interface Props {
 }
 
 const ShowingText: FC<Props> = ({ visibleText }) => {
-    return <div className={styles.area}>{formatText(visibleText)}</div>
+    const [isEditable] = useAtom(isEditableAtom)
+
+    return (
+        <div
+            className={cn(
+                styles.area,
+                isEditable ? undefined : styles.immutable
+            )}
+        >
+            {formatText(visibleText)}
+        </div>
+    )
 }
 
 const compareProps = (
@@ -26,3 +40,5 @@ function formatText(text: string) {
 }
 
 export default memo(ShowingText, compareProps)
+
+
