@@ -1,6 +1,10 @@
-const languages = {
-    rus: 'rus',
-    en: 'en'
-}
+import { Option } from "types/baseTypes"
 
-export {languages}
+type Lang = "rus" | "en"
+
+const langs: Option<Lang>[] = [
+    { value: "rus", label: "Русский" },
+    { value: "en", label: "English" },
+]
+
+export { langs, type Lang }

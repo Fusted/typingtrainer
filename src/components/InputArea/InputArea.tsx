@@ -1,12 +1,6 @@
 import styles from "../TypingArea/typingArea.module.scss"
 
-import React, {
-    ChangeEvent,
-    ForwardedRef,
-    forwardRef,
-    SyntheticEvent,
-    useState,
-} from "react"
+import React, { useState } from "react"
 import cn from "classnames"
 import { useAction, useAtom } from "@reatom/npm-react"
 import { setEnteredTextAction, enteredTextAtom } from "atoms/enteredTextAtom"
@@ -20,33 +14,40 @@ import {
     setCurrentLetterIdAction,
 } from "atoms/state"
 
-const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
+const InputArea = ({}, ref: React.ForwardedRef<HTMLTextAreaElement>) => {
     const [prevTextLength, setPrevTextLength] = useState(0)
-    const setEnteredText = useAction(setEnteredTextAction)
-    const changeCurrentLetterId = useAction(setCurrentLetterIdAction)
-    const setFocused = useAction(setFocusedAction)
-    const incrementMistakesCounter = useAction(incrementMistakesCounterAction)
     const setTyping = useAction(setTypingAction)
     const [visibleText] = useAtom(visibleTextAtom)
     const [isTyping] = useAtom(isTypingAtom)
     const [isEditable] = useAtom(isEditableAtom)
+    const [value] = useAtom(enteredTextAtom)
+    const setEnteredText = useAction(setEnteredTextAction)
+    const changeCurrentLetterId = useAction(setCurrentLetterIdAction)
+    const setFocused = useAction(setFocusedAction)
+    const incrementMistakesCounter = useAction(incrementMistakesCounterAction)
 
-    const onSelect = (event: SyntheticEvent<HTMLTextAreaElement, Event>) => {
+    const onSelect = (
+        event: React.SyntheticEvent<HTMLTextAreaElement, Event>
+    ) => {
         if (event.target instanceof HTMLTextAreaElement) {
             changeCurrentLetterId(event.target.selectionStart ?? 0)
         }
     }
 
-    const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const enteredText = event.target.value
-        changeCurrentLetterId(enteredText.length)
 
-        // old logics
+        if (enteredText.match(/\n/g)) {
+            return
+        }
+
         const lastSymbolId = enteredText.length - 1
         const isInCorrect =
             enteredText[lastSymbolId] != visibleText[lastSymbolId] &&
             enteredText.length > 0 &&
             prevTextLength < enteredText.length
+
+        changeCurrentLetterId(enteredText.length)
 
         if (isInCorrect) {
             incrementMistakesCounter()
@@ -55,15 +56,10 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
         if (!isTyping) {
             setTyping(!!enteredText.length)
         }
-        // TODO: какое то говно
-        if (!enteredText.includes("\n")) {
-            setEnteredText(enteredText)
-        }
 
+        setEnteredText(enteredText)
         setPrevTextLength(enteredText.length)
     }
-
-    const [value] = useAtom(enteredTextAtom)
 
     return (
         <textarea
@@ -79,4 +75,4 @@ const InputArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     )
 }
 
-export default forwardRef(InputArea)
+export default React.forwardRef(InputArea)

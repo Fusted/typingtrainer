@@ -1,38 +1,24 @@
-import styles from "../cards.module.scss"
-
-import React, { ChangeEvent, FC } from "react"
+import React from "react"
 import { languageAtom, setLanguageAction } from "atoms/config"
 import { useAction, useAtom } from "@reatom/npm-react"
 import { disposeAction } from "atoms/dispose"
+import { type Lang, langs } from "services/languages"
+import Select from "packages/Select"
 
-interface ILanguageButton {
-    languages: string[]
-}
-
-const LanguageButton: FC<ILanguageButton> = ({ languages }) => {
+const LanguageButton: React.FC = () => {
     const [language] = useAtom(languageAtom)
     const setLanguage = useAction(setLanguageAction)
     const dispose = useAction(disposeAction)
 
-    const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setLanguage(e.target.value)
+    const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const lang = event.target.value as Lang
+
+        setLanguage(lang)
         dispose()
-        localStorage.setItem("typing-lan", e.target.value)
+        localStorage.setItem("typing-lan", lang)
     }
 
-    const languageOptions = languages.map((language) => {
-        return (
-            <option key={language} value={language}>
-                {language.toUpperCase()}
-            </option>
-        )
-    })
-
-    return (
-        <select className={styles.select} value={language} onChange={onChange}>
-            {languageOptions}
-        </select>
-    )
+    return <Select options={langs} value={language} onChange={onChange} />
 }
 
 export default LanguageButton
