@@ -5,9 +5,9 @@ import StatsList from "components/cards/StatsList/StatsList"
 import TypingArea from "components/TypingArea/TypingArea"
 import ButtonsList from "components/cards/ButtonsList/ButtonsList"
 import { useAction } from "@reatom/npm-react"
-import { resetEneteredTextAction } from "../../atoms/enteredTextAtom"
-import { setVisibleTextAction } from "../../atoms/visibleText"
-import { setLanguageAction } from "atoms/config"
+import { resetEneteredTextAction } from "atoms/enteredTextAtom"
+import { setVisibleTextAction } from "atoms/visibleText"
+
 import { setFocusedAction } from "atoms/state"
 
 const TypingContainer = () => {
@@ -15,12 +15,6 @@ const TypingContainer = () => {
     const setVisibleText = useAction(setVisibleTextAction)
     const setFocus = useAction(setFocusedAction)
     const hiddenAreaRef = createRef<HTMLTextAreaElement>()
-
-    const setLanguage = useAction(setLanguageAction)
-    useEffect(() => {
-        const language = localStorage.getItem("typing-lan")
-        language ? setLanguage(language) : "en"
-    }, [setLanguage])
 
     const focusArea = useCallback(() => {
         hiddenAreaRef?.current?.focus()

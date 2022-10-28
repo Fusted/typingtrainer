@@ -1,26 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, useEffect } from "react"
-import Button from "packages/Button"
+import React, { useCallback, useEffect } from "react"
 import { disposeAction } from "atoms/dispose"
 import { useAction } from "@reatom/npm-react"
+import Button from "packages/Button"
 
 export interface Props {
     focusArea: VoidFunction
 }
 
-const ResetButton: FC<Props> = ({ focusArea }) => {
+const ResetButton: React.FC<Props> = ({ focusArea }) => {
     const dispose = useAction(disposeAction)
 
-    const reset = (): void => {
+    const reset = useCallback((): void => {
         dispose()
         focusArea()
-    }
+    }, [dispose, focusArea])
 
-    const onKeyReset = (event: KeyboardEvent) => {
-        if (event.code === "Enter") {
-            reset()
-        }
-    }
+    const onKeyReset = useCallback(
+        (event: KeyboardEvent) => {
+            if (event.code === "Enter") {
+                reset()
+            }
+        },
+        [reset]
+    )
 
     useEffect(() => {
         focusArea()

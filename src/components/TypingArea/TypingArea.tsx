@@ -1,19 +1,17 @@
 import styles from "./typingArea.module.scss"
 
-import React, { ForwardedRef, forwardRef, useEffect } from "react"
+import React, { useEffect } from "react"
+import { useAction, useAtom } from "@reatom/npm-react"
+import { setVisibleTextAction, visibleTextAtom } from "atoms/visibleText"
+import { enteredTextAtom, resetEneteredTextAction } from "atoms/enteredTextAtom"
 import ShowingText from "components/ShowingText/ShowingText"
 import InputArea from "components/InputArea/InputArea"
-import { setVisibleTextAction, visibleTextAtom } from "../../atoms/visibleText"
-import { useAction, useAtom } from "@reatom/npm-react"
-import { enteredTextAtom, resetEneteredTextAction } from "atoms/enteredTextAtom"
 
-
-const TypingArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
+const TypingArea = ({}, ref: React.ForwardedRef<HTMLTextAreaElement>) => {
     const resetEnteredText = useAction(resetEneteredTextAction)
     const setVisisbleText = useAction(setVisibleTextAction)
     const [enteredText] = useAtom(enteredTextAtom)
     const [visibleText] = useAtom(visibleTextAtom)
-
 
     useEffect(() => {
         if (enteredText.length === visibleText.length) {
@@ -35,4 +33,4 @@ const TypingArea = ({}, ref: ForwardedRef<HTMLTextAreaElement>) => {
     )
 }
 
-export default forwardRef(TypingArea)
+export default React.forwardRef(TypingArea)

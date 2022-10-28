@@ -1,17 +1,17 @@
 import styles from "./letter.module.scss"
 
 import React from "react"
-import { useAtom } from "@reatom/npm-react"
 import cn from "classnames"
+import { useAtom } from "@reatom/npm-react"
 import { isfocusedAtom, currentLetterIdAtom } from "atoms/state"
 import { enteredTextAtom } from "atoms/enteredTextAtom"
 
-interface ILetter {
+interface Props {
     index: number
     letter: string
 }
 
-const Letter = ({ letter, index }: ILetter) => {
+const Letter = ({ letter, index }: Props) => {
     const [className] = useAtom((ctx) => {
         const currentLetterId = ctx.spy(currentLetterIdAtom)
         const enteredText = ctx.spy(enteredTextAtom)

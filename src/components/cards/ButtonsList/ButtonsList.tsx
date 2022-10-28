@@ -1,7 +1,6 @@
 import styles from "../cards.module.scss"
 
-import React, { FC, useEffect, useState } from "react"
-import { getLanguages } from "services/service"
+import React from "react"
 import ResetButton from "../ResetButton/ResetButton"
 import LanguageButton from "../LanguageButton/LanguageButton"
 
@@ -9,20 +8,11 @@ interface Props {
     focusArea: VoidFunction
 }
 
-const ButtonsList: FC<Props> = ({ focusArea }) => {
-    const [languages, setLanguages] = useState([""])
-
-    useEffect(() => {
-        const languages = getLanguages()
-        languages.then((languages) => {
-            setLanguages(languages)
-        })
-    }, [])
-
+const ButtonsList: React.FC<Props> = ({ focusArea }) => {
     return (
         <div className={styles.cardList}>
             <ResetButton focusArea={focusArea} />
-            <LanguageButton languages={languages} />
+            <LanguageButton />
         </div>
     )
 }

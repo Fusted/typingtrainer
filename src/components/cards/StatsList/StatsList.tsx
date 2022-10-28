@@ -1,16 +1,15 @@
 import styles from "../cards.module.scss"
 
-import React, { FC, useEffect, useState } from "react"
-import DataCard from "../DataCard/DataCard"
-import TimerCard from "../TimerCard/TimerCard"
+import React, { useEffect, useState } from "react"
 import { timeLimitAtom } from "atoms/config"
 import { useAtom } from "@reatom/npm-react"
 import { enteredTextAtom } from "atoms/enteredTextAtom"
 import { isShouldResetAtom, mistakesCounterAtom } from "atoms/state"
 import { visibleTextAtom } from "atoms/visibleText"
+import Timer from "../Timer/Timer"
+import Card from "packages/Card"
 
-const StatsList: FC = () => {
-    
+const StatsList: React.FC = () => {
     const [timeLimit] = useAtom(timeLimitAtom)
     const [enteredText] = useAtom(enteredTextAtom)
     const [visibleText] = useAtom(visibleTextAtom)
@@ -53,10 +52,10 @@ const StatsList: FC = () => {
 
     return (
         <div className={styles.cardList}>
-            <DataCard text="Accuracy" value={`${accuracy} %`} />
-            <DataCard text="Speed" value={`${speed} LPM`} />
-            <DataCard text="Mistakes" value={mistakesCounter} />
-            <TimerCard time={time} setTime={setTime} />
+            <Card text="Accuracy" value={`${accuracy} %`} />
+            <Card text="Speed" value={`${speed} LPM`} />
+            <Card text="Mistakes" value={mistakesCounter} />
+            <Timer time={time} setTime={setTime} />
         </div>
     )
 }
