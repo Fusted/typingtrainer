@@ -15,7 +15,6 @@ const LanguageButton: React.FC = () => {
 
         setLanguage(lang)
         dispose()
-        localStorage.setItem("typing-lan", lang)
     }
 
     return <Select options={langs} value={language} onChange={onChange} />

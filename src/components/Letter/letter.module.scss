@@ -1,11 +1,8 @@
 @import "../../styles/variables.scss";
 
-$white: #fff;
-$grey: #808080;
-
 .active {
     box-sizing: border-box;
-    box-shadow: -1px 0 #fff;
+    box-shadow: -1px 0 $mainColor;
     opacity: 1 !important;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -26,16 +23,15 @@ $grey: #808080;
     text-decoration: none;
 }
 
-
 @keyframes cursorAnimation {
     from {
-        box-shadow: -1px 0 $white;
+        box-shadow: -1px 0 $mainColor;
     }
     50% {
-        box-shadow: -1px 0 $grey;
+        box-shadow: -1px 0 $greyColor;
     }
     to {
-        box-shadow: -1px 0 $white;
+        box-shadow: -1px 0 $mainColor;
         opacity: 1;
     }
 }
