@@ -1,13 +1,15 @@
 @import "../../styles/variables.scss";
 
 .card {
-    padding: 25px;
-    border: none;
+    display: flex;
+    align-items: center;
+    text-align: center;
     font: inherit;
-    color: $mainColor;
     background-color: $typingBGcolor;
-    cursor: pointer;
+    color: $mainColor;
+    border: none;
+    padding: 25px;
     margin-right: 10px;
     border-radius: $border-radius-l;
-    text-align: center;
+    cursor: pointer;
 }
