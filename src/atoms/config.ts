@@ -1,12 +1,15 @@
 import { atom, action } from "@reatom/core"
 import { Lang } from "services/languages"
+import { getStorageLanguage, setStorageLanguage } from "services/storage"
 
-const localLang = localStorage.getItem("typing-lan") as Lang
+const language = getStorageLanguage()
+const lettersLimitAtom = atom(400)
+const timeLimitAtom = atom(60)
+const languageAtom = language ? atom(language) : atom("en" as Lang)
 
-export const lettersLimitAtom = atom(400)
-export const timeLimitAtom = atom(60)
-export const languageAtom = localLang ? atom(localLang): atom("en" as Lang)
-
-export const setLanguageAction = action((ctx, language: Lang) => {
+const setLanguageAction = action((ctx, language: Lang) => {
     languageAtom(ctx, language)
+    setStorageLanguage(language)
 })
+
+export { setLanguageAction, languageAtom, lettersLimitAtom, timeLimitAtom }
