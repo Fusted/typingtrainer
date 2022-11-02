@@ -1,24 +1,9 @@
 import "./app.scss"
 
-import React, { useEffect } from "react"
-import { useAction } from "@reatom/npm-react"
-import { Lang } from "services/languages"
-import { setLanguageAction } from "atoms/config"
+import React from "react"
 import TypingContainer from "components/TypingContainer/TypingContainer"
 
-interface Props {
-    lang?: Lang
-}
-
-const App: React.FC<Props> = ({ lang }): React.ReactElement => {
-    const setLanguage = useAction(setLanguageAction)
-
-    useEffect(() => {
-        if (lang) {
-            setLanguage(lang)
-        }
-    }, [lang, setLanguage])
-
+const App = (): React.ReactElement => {
     return (
         <div className="app">
             <TypingContainer />
