@@ -1,5 +1,7 @@
 {
     "name": "typingtrainer",
+    "homepage": "http://fusted.ru/",
+    ::
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -22,9 +24,12 @@
         "react": "^17.0.2",
         "react-contenteditable": "^3.3.6",
         "react-dom": "^17.0.2",
+        "react-router": "^6.4.3",
+        "react-router-dom": "^6.4.3",
         "react-scripts": "5.0.0",
         "typed-scss-modules": "7.0.1",
         "typescript-plugin-css-modules": "^3.4.0",
+        "use-query-params": "^2.1.2",
         "wait-on": "^6.0.1",
         "web-vitals": "^2.1.4"
     },
