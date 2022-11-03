@@ -9,7 +9,6 @@ const languageAtom = language ? atom(language) : atom("en" as Lang)
 
 const setLanguageAction = action((ctx, language: Lang) => {
     languageAtom(ctx, language)
-    setStorageLanguage(language)
-})
+    setStorageLanguage(language)})
 
 export { setLanguageAction, languageAtom, lettersLimitAtom, timeLimitAtom }
