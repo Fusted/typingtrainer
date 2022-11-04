@@ -33,14 +33,14 @@
     },
     "main": "public/electron.js",
     "scripts": {
-        "react-build": "react-scripts build --mode production",
         "react-test": "react-scripts test --env=jsdom",
         "react-eject": "react-scripts eject",
         "electron-build": "electron-builder",
         "release": "npm run react-build && electron-builder --publish=always",
-        "build": "npm run react-build && npm run electron-build",
+        "build": "react-scripts build --mode production",
         "start": "react-scripts start --mode development",
-        "start-all": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on $LOCAL_URL && electron .\""
+        "start-all": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on $LOCAL_URL && electron .\"",
+        "build-all": "npm run react-build && npm run electron-build"
     },
     "description": "Simple typing trainer",
     "author": "Fusted",
