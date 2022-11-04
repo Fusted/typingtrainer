@@ -1,5 +1,7 @@
 # Simple typing trainer
 
+## [Link to working SPA](https://fusted.ru/)
+
 ## Available Scripts
 
 #### Staring project
