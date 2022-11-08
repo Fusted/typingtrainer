@@ -22,7 +22,6 @@ const App = (): React.ReactElement => {
 
     return (
         <div className="app">
-            {console.log('render')}
             <TypingContainer />
         </div>
     )
