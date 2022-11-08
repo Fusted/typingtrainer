@@ -1,6 +1,6 @@
 # Simple typing trainer
 
-## [Link to working SPA](https://fusted.ru/)
+## [Demo](https://fusted.ru/)
 
 ## Available Scripts
 
