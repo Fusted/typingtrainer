@@ -16,8 +16,8 @@ const LanguageButton: React.FC = () => {
     const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = event.target.value as Lang
         setLanguage(lang)
-        dispose()
         setQueryLanguage(lang)
+        dispose()
     }
 
     return <Select options={langs} value={language} onChange={onChange} />

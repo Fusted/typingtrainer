@@ -3,7 +3,6 @@ import { setEnteredTextAction } from "./enteredTextAtom"
 import {
     setTypingAction,
     setEditableAction,
-    setFocusedAction,
     setShouldResetAction,
     resetMistakesCounterAction,
     setCurrentLetterIdAction,
@@ -18,5 +17,4 @@ export const disposeAction = action((ctx) => {
     setEditableAction(ctx, true)
     setShouldResetAction(ctx, true)
     setTypingAction(ctx, false)
-    setFocusedAction(ctx, false)
 })

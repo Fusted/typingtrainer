@@ -24,7 +24,8 @@ const TypingContainer = () => {
     useEffect(() => {
         setVisibleText()
         resetEneteredText()
-    }, [setVisibleText, resetEneteredText])
+        focusArea()
+    }, [setVisibleText, resetEneteredText, focusArea])
 
     return (
         <div className={styles.container}>
