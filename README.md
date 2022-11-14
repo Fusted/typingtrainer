@@ -1,4 +1,4 @@
-# Simple typing trainer
+# Typing trainer
 
 ## [Demo](https://fusted.ru/)
 
